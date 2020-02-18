@@ -1,0 +1,29 @@
+.widget-audio-term-container {
+
+    .b2 {
+        display: flex;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .sub1 {
+            width: 30%;
+        }
+
+        .sub2 {
+            width: 70%;
+        }
+    }
+
+}
+
+.widget-audio-term-item {
+    .b2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity: 0.5;
+    }
+
+    .b2 * {
+        vertical-align: middle
+    }
+}

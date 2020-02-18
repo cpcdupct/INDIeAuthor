@@ -1,0 +1,16 @@
+.widget-animation-item {
+    .b2 {
+        display: flex;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .sub1 {
+            width: 30%;
+        }
+
+        .sub2 {
+            width: 70%;
+        }
+    }
+
+}

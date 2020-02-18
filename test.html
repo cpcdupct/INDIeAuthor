@@ -1,0 +1,39 @@
+<form id="f-{{instanceId}}">
+        <div class="form-group"> <label>{{translate "widgets.TrueFalseQuestion.form.questionText.label"}}</label>
+                <textarea class="form-control" name="question"
+                        placeholder="{{translate "widgets.TrueFalseQuestion.form.questionText.placeholder"}}"
+                        required>{{question}}</textarea> <small
+                        class="form-text text-muted">{{translate "widgets.TrueFalseQuestion.form.questionText.help"}}</small>
+        </div>
+        <div class="form-group">
+                <label>{{translate "widgets.TrueFalseQuestion.form.answer.label"}}</label>
+                <select name="correctAnswer" class="form-control" required>
+                        <option value="true">{{translate "widgets.TrueFalseQuestion.form.answer.true"}}</option>
+                        <option value="false">{{translate "widgets.TrueFalseQuestion.form.answer.false"}}</option>
+                </select>
+                <small class="form-text text-muted">
+                        {{translate "widgets.TrueFalseQuestion.form.answer.help"}}</small>
+        </div>
+</form>
+
+<form id="f-{{instanceId}}">
+        <div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text"
+                        name="instanceName" class="form-control" value="{{instanceName}}"
+                        placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required /> <small
+                        class="form-text text-muted">{{translate "common.name.help"}}</small> </div>
+        <div class="form-group"> <label for="type">{{translate "widgets.SimpleImage.form.aspect.label"}}</label> <select
+                        name="aspect" class="form-control" required>
+                        <option value="original">{{translate "widgets.SimpleImage.form.aspect.values.original"}}
+                        </option>
+                        <option value="fit">{{translate "widgets.SimpleImage.form.aspect.values.fit"}}</option>
+                </select> <small
+                        class="form-text text-muted">{{translate "widgets.SimpleImage.form.aspect.help"}}</small> </div>
+        <div class="form-group"><label for="image">{{translate "widgets.SimpleImage.form.image.label"}}</label><input
+                        type="url" class="form-control" name="image" required
+                        placeholder="{{translate "widgets.SimpleImage.form.image.placeholder"}}" value="{{image}}"
+                        autocomplete="off" /><small
+                        class="form-text text-muted">{{translate "widgets.SimpleImage.form.image.help"}}</small></div>
+        {{#if image}}<div class="form-group">
+                <p>{{translate "widgets.SimpleImage.form.preview"}}</p><img class="img-fluid" src="{{image}}" />
+        </div>{{/if}}
+</form>

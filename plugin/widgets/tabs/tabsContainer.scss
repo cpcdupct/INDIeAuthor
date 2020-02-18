@@ -1,0 +1,16 @@
+.widget-tabs-container {
+    .tab {
+        .tab-header {
+            text-align: left;
+
+            button {
+                float: right;
+            }
+        }
+    }
+
+    .tabs-footer {
+        margin-top: 10px;
+        margin-bottom: 4px;
+    }
+}

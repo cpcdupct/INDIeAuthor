@@ -1,0 +1,16 @@
+.widget-couple-item {
+    .b2 {
+        display: flex;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .sub1 {
+            width: 30%;
+            word-break: break-all;
+        }
+
+        .sub2 {
+            width: 70%;
+        }
+    }
+}

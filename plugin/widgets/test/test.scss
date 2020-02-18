@@ -1,0 +1,27 @@
+/** PARAGRAPH */
+.widget-test {
+    .b2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .b2 * {
+        vertical-align: middle
+    }
+}
+
+.widget-question {
+    .b2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .b2 * {
+        vertical-align: middle
+    }
+}
+
+.input-answer {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

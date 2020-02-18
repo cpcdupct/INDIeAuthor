@@ -1,0 +1,41 @@
+indieauthor.widgets.WIDGET_TYPE = {
+    widgetConfig: {
+        // POPULATE WITH KEY-VALUE PAIRS 
+    },
+    createPaletteItem: function (params?) {
+        // CREATE THE DOM ELEMENT TO BE APPPENDED TO THE ITEMS PALETTE 
+    },
+    createElement: function (widgetInfo) {
+        // CREATE THE DOM ELEMENT TO BE APPENDED TO THE EDITOR CONTAINER
+    },
+    template: function (options?) {
+        // TEMPLATE THAT DEFINES THE DOM ELEMENT FOR THE WIDGET
+    },
+    getInputs: function (modelObject) {
+        // BODY FOR THE WIDGET INFORMATION MODAL
+        // CREATE THE DOM ELEMENTS CORRESPONDING TO THE INFORMATION INPUTS FOR THE WIDGET
+        // YOU MUST ALLOW THIS FUNCTION TO ACCEPT ALREADY SET PARAMETERS FOR THE WIDGET
+    },
+    settingsClosed: function(modelObject) {
+
+    },
+    settingsOpened: function (modelObject) {
+        // IF THE WIDGET NEEDS ANY PLUGIN TO WORK PROPERLY, IN THIS FUNCTION THE NEEDED CODE WILL BE PLACED
+    },
+    preview: function (modelObject) {
+        // THIS FUNCTION IS EXEUTED WHEN THE WIDGET INSTANCE IS EDITED, ITS PURPOUSE IS TO GENRATE A PREVIEW INSIDE THE MAIN CONTAINER
+    },
+    emptyData: function (options?) {
+        //  CREATE THE EMPTY DATA FOR THE WIDGET        
+    },
+    updateModelFromForm: function (modelObject, formJson) {
+        // PARSE THE DATE FROM THE JSON AND INJECT INTO AN OBJECT FOR THE MODEL        
+    },
+    validateModel: function (widgetInstance) {
+
+    },
+    validateForm: function(formData, instanceId) {
+
+    },
+    icon: ""
+}

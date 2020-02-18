@@ -1,0 +1,62 @@
+.modal-header {
+    justify-content: unset;
+}
+
+.modal-header * {
+    margin-left: 0px !important;
+}
+
+.btn-no-border {
+    border: 0px solid transparent;
+}
+
+.navbar {
+    padding: .2em 1rem;
+}
+
+/** DRAGULA */
+.gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 0.8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+}
+
+.gu-hide {
+    display: none !important;
+}
+
+.gu-unselectable {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+.gu-transit {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+}
+
+
+.hide {
+    display: none;
+}
+
+.alert-pale {
+    color: #383d41;
+    background-color: #eef3f9;
+    border: 1px solid rgb(180, 191, 203);
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}

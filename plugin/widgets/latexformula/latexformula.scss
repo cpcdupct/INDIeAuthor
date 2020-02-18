@@ -1,0 +1,16 @@
+.widget-latexformula {
+    .b2 * {
+        vertical-align: middle
+    }
+
+    .b2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+
+.formula-preview {
+    margin-top: 10px;
+    margin-left: 10px;
+}

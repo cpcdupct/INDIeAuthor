@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>INDIeAuthor | Prototype</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="manifest" href="manifest.json">
+    <!-- STYLES -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/overrides.css">
+    <link rel="stylesheet" type="text/css" href="/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/ui/trumbowyg.css"
+        integrity="sha256-xiNKwyaBUFF81IOozEFiUZcIx5NZoKjJTujcO43lwB4=" crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/plugins/colors/ui/trumbowyg.colors.min.css"
+        integrity="sha256-ypD0K+UpKz5IICqlKKqKZmk/pxZ5qGMRXEBN4QNEwi8=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/css/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
+    <!-- EDITOR STYLES -->
+    <link rel="stylesheet" type="text/css" href="/css/editor-styles.css">
+
+</head>
+
+<body>
+    <!-- NAVBAR-->
+    <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <a class="navbar-brand" href="#">INDIeAuthor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Content <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <div class="container-fluid main-content">
+        <div class="row">
+            <div class="col-12 col-md-3 col-lg-2 bd-sidebar">
+                <nav class="palette-nav">
+                    <div id="palette" data-type="palette" class="dragula-container row">
+                        <!-- ITEMS WILL BE PLACED HERE -->
+                    </div>
+                </nav>
+
+            </div>
+            <main role="main" class="col-12 col-md-9 col-lg-10 offset-md-3 offset-lg-2  bd-content no-padding">
+                <div class="editor-container-header">
+                    <div class="col left">
+                        <!-- Left buttons in header -->
+                        <button onclick="saveContent()" class="btn btn-header btn-info l" data-toggle="tooltip"
+                            data-title="Save content">
+                            <i class="fa fa-save"></i></button>
+                        <button onclick="indieauthor.api.validateContent(true)" class="btn btn-header btn-info l"
+                            data-toggle="tooltip" data-title="Validate model">
+                            <i class="fa fa-check"></i></button>
+                        <button onclick="downloadModel()" class="btn btn-header btn-info" data-toggle="tooltip"
+                            data-title="Validate model"><i class="fa fa-cloud-download-alt"></i></button>
+
+                        <!-- Right buttons in header -->
+                        <button onclick="indieauthor.api.undo()" class="btn btn-header btn-info r" data-toggle="tooltip"
+                            data-title="Undo action"> <i class="fa fa-undo"></i>
+                        </button>
+
+                        <button onclick="indieauthor.api.redo()" class="btn btn-header btn-info r" data-toggle="tooltip"
+                            data-title="Redo action"> <i class="fa fa-redo"></i>
+                        </button>
+
+                        <button onclick="indieauthor.addSection(undefined, true)" class="btn btn-header btn-success r"
+                            data-toggle="tooltip" data-title="Add new section"> <i
+                                class="fa fa-plus-circle"></i></button>
+                        <button onclick="indieauthor.api.clearContent()" class="btn btn-header btn-danger r"
+                            data-toggle="tooltip" data-title="Clear content"> <i class="fa fa-trash-alt"></i></button>
+                    </div>
+                </div>
+                <div class="editor-container">
+                    <div id="main-container" data-type="main-container" data-content>
+
+                    </div>
+                </div>
+                <div id="editor-footer" class="editor-footer">
+                    <div class="alert alert-pale" role="alert">
+                        You can add new sections with the toolbar on top
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL SETTINGS-->
+    <div id="modal-settings" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content border-indie">
+                <div class="modal-header modal-indie">
+                    <h5 id="modal-settings-tittle" class="modal-title">Modal title</h5>
+                </div>
+                <div id="modal-settings-body" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-indie btn-submit">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ---- GLOBAL DEPENDENCIES ---  -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/toastr.min.js"></script>
+
+    <!-- EDITOR DEPENDENCIES -->
+    <script src="/js/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/trumbowyg.js"
+        integrity="sha256-mY/kWmcnLOqKCu+D3SangML03IxOyG7q3sMY/eqf8RE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/plugins/cleanpaste/trumbowyg.cleanpaste.js"
+        integrity="sha256-hGTEkeUyqIxxcYiCJj81adO/xtTuA5CQak3Co50R3Yk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.18.0/plugins/colors/trumbowyg.colors.js"
+        integrity="sha256-/vCh+OJ3FrcZm9QfVG4XIQnpiKmxPy8NdVH57dR1ygY=" crossorigin="anonymous"></script>
+    <script src="/js/katex.min.js"></script>
+    <script src="/js/auto-render.min.js"></script>
+    <script src="/js/jsonpath.min.js"></script>
+    <script src="/js/modernizr.js"></script>
+    <script src="/js/stickybits.min.js"></script>
+    <script src="/js/bootbox.min.js"></script>
+    <script src="/js/dragula.js"></script>
+
+    <!-- EDITOR -->
+    <script src="/js/editor/editor.js"></script>
+    <script src="/js/editor/lang/en-EN.js"></script>
+
+    <script type="text/javascript">
+        function saveContent() {
+            indieauthor.api.getEditorContent(function (sections, version) {
+                var transformed = indieauthor.transform.runTransformation({
+                    title: "test",
+                    user: "Test",
+                    language: "ES"
+                }, sections, 'Preview');
+
+                console.log(transformed);
+
+            }, function (error) {
+                console.error("ERROR " + error);
+            })
+        }
+
+        /** Entry point */
+        (function () {
+            stickybits('.bd-navbar');
+
+            var domPalette = document.getElementById('palette');
+            var domContainer = document.getElementById('main-container');
+            indieauthor.init(domPalette, domContainer, function () {
+
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+.widget-dragdrop-item {
+    .b2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .b2 * {
+        vertical-align: middle
+    }
+}
