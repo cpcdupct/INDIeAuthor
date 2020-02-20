@@ -763,7 +763,7 @@ indieauthor.addContent = function (containerId, widget, type) {
             });
         }
 
-        bootbox.prompt({
+        bootprompt.prompt({
             title: indieauthor.strings.common.selectType,
             inputType: 'select',
             inputOptions: options,

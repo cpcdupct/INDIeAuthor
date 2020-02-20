@@ -1,10 +1,11 @@
 // GULP MODULES
 var gulp = require('gulp');
+var runSequence = require('gulp4-run-sequence');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var strip = require('gulp-strip-comments');
 var exec = require('child_process').exec;
-var cssmin = require('gulp-cssmin');
+var cleanCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
 var minify = require('gulp-minify');
 
@@ -28,21 +29,22 @@ var distLangFolder = distJsFolder + "lang/";
 var distCssFolder = distFolder + "css/"
 
 // CONTENT
-gulp.task('build', function () {
-    gulp.start('scripts');
-    gulp.start('styles');
-    gulp.start('copy-web');
+gulp.task('build', function (done) {
+    runSequence('scripts', 'styles', 'copy-web');
+
+    done();
 });
 
-gulp.task('build-dev', function () {
-    gulp.start('build');
+gulp.task('build-dev', function (done) {
+    runSequence('build', 'server')
     gulp.watch(['./index.html', pluginFolder + "**/*.*", './css/*.*', './js/*.*']).on("change", function (event) {
-        gulp.start('build');
+        runSequence('build');
     });
-    gulp.start('server');
+
+    done();
 })
 
-gulp.task('scripts', function () {
+gulp.task('scripts', function (done) {
     gulp.src([file('widgets.js'), file('indieauthor.js'), file('plugins.js'), file('model.js'), file('widgets-functions.js'), file('widgets/**/*.js'), file('polyfill.js'), file('transform.js'), file('migrate.js'), file('undoredo.js'), file('api.js'), file('utils.js')])
         .pipe(concat('editor.js'))
         .pipe(strip()) // For deleting the comments
@@ -58,16 +60,18 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest(webEditorFolder + "/lang"))
         .pipe(gulp.dest(distLangFolder));
 
-    gulp.src(["./js/*.js"]).pipe(gulp.dest(webJsFolder));
+    gulp.src(["./js/*.*"]).pipe(gulp.dest(webJsFolder));
+
+    done();
 });
 
-gulp.task('styles', function () {
+gulp.task('styles', function (done) {
     gulp.src([file('common-styles.scss'), file('widgets/**/*.scss')])
         .pipe(sass())
         .pipe(concat('editor-styles.css'))
         .pipe(gulp.dest(webCssFolder))
         .pipe(gulp.dest(distCssFolder))
-        .pipe(cssmin())
+        .pipe(cleanCSS())
         .pipe(rename({
             suffix: '.min'
         }))
@@ -76,12 +80,16 @@ gulp.task('styles', function () {
 
     gulp.src(["./css/**.*"]).pipe(gulp.dest(webCssFolder));
     gulp.src(["./css/fonts/*.*"]).pipe(gulp.dest(webFontfolder));
+
+    done();
 });
 
 // COMMON
-gulp.task('copy-web', function () {
+gulp.task('copy-web', function (done) {
     gulp.src(["./index.html", "./favicon.ico", "./manifest.json"]).pipe(gulp.dest(webFolder));
     gulp.src(["./assets/*"]).pipe(gulp.dest(webFolder + "/assets/"));
+
+    done();
 });
 
 gulp.task('server', function (cb) {

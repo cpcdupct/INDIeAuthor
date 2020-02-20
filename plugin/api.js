@@ -45,7 +45,7 @@ indieauthor.api.validateContent = function (print) {
  * Clears the content of the editor
  */
 indieauthor.api.clearContent = function () {
-    bootbox.confirm({
+    bootprompt.confirm({
         title: indieauthor.strings.general.areYouSure,
         message: indieauthor.strings.messages.confirmClearContent,
         buttons: {

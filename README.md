@@ -23,7 +23,7 @@ INDIeAuthor has well-known dependencies to work:
 * Katex and auto-render
 * Modernizr
 * Stickybits
-* Bootbox
+* bootprompt
 * Dragula
 
 ## Usage
