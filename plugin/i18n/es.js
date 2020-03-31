@@ -14,6 +14,12 @@ indieauthor.strings = {
             placeholder: "Nombre de la instancia del widget",
             help: "Este será el nombre de la instancia del widget para las analíticas de aprendizaje"
         },
+        help: {
+            label: "Ayuda",
+            placeholder: "Texto de ayuda por defecto",
+            help: "Este texto será el que aparezca encima del widget para que el usuario entienda cómo interaccionar con el widget. <strong>Si se deja en blanco tomará el valor por defecto.</strong>",
+            button: "Por defecto"
+        },
         selectType: "Selecciona un tipo de las siguientes opciones"
     },
     widgets: {

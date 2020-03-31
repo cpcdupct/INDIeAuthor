@@ -5,10 +5,10 @@ indieauthor.model.sections = []; // MODEL SECTIONS
 indieauthor.model.currentErrors = [];
 
 // Current model version
-indieauthor.model.CURRENT_MODEL_VERSION = 3;
+indieauthor.model.CURRENT_MODEL_VERSION = 4;
 
 // Version history
-indieauthor.model.VERSION_HISTORY = [1, 2, 3];
+indieauthor.model.VERSION_HISTORY = [1, 2, 3, 4];
 
 /**
  * Creates and pushes a section into the model

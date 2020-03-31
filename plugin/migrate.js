@@ -82,6 +82,17 @@ indieauthor.migrate.migrations = {
 
             return sections;
         }
+    },
+    from3to4: {
+        run: function (sections) {
+            var widgetInstances = indieauthor.migrate.functions.getWidgetsToAddHelpParameter(sections);
+            for (var i = 0; i < widgetInstances.length; i++) {
+                var widgetInstance = widgetInstances[i];
+                widgetInstance.params.help = "";
+            }
+
+            return sections;
+        }
     }
 }
 
@@ -125,6 +136,44 @@ indieauthor.migrate.functions = {
                 var instancesInChildren = this.findInstancesByWidgetType(child, widgetType);
                 widgetInstances = widgetInstances.concat(instancesInChildren);
             }
+        }
+
+        return widgetInstances;
+    },
+    /**
+     * 
+     * Gets the widgets to add the help parameter
+     * 
+     * @param {*} sections Array of sections
+     */
+    getWidgetsToAddHelpParameter: function (sections) {
+        var isHelpWidget = function (widget) {
+            return (["AcordionContainer", "AnimationContainer", "AudioTermContainer", "ChooseOption", "CouplesContainer", "DragdropContainer", "Image", "ImageAndSoundContainer", "ImageAndText", "Modal", "SchemaContainer", "TabsContainer", "Test", "TrueFalseContainer"].indexOf(widget) >= 0);
+        }
+
+        var findInstance = function (element) {
+            var widgetInstances = [];
+
+            if (isHelpWidget(element.widget)) {
+                widgetInstances.push(element);
+            } else if (indieauthor.hasChildren(element.type)) {
+                var childrenElements = element.type == 'layout' ? [].concat.apply([], element.data) : element.data;
+                for (var i = 0; i < childrenElements.length; i++) {
+                    var child = childrenElements[i];
+                    var instancesInChildren = findInstance(child);
+                    widgetInstances = widgetInstances.concat(instancesInChildren);
+                }
+            }
+
+            return widgetInstances;
+        }
+
+        var widgetInstances = [];
+
+        for (var i = 0; i < sections.length; i++) {
+            var section = sections[i];
+            var instancesInSection = findInstance(section);
+            widgetInstances = widgetInstances.concat(instancesInSection);
         }
 
         return widgetInstances;

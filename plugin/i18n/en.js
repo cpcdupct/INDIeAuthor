@@ -14,6 +14,12 @@ indieauthor.strings = {
             placeholder: "Name of this current widget instance",
             help: "This will be name of this instance for learning analytics"
         },
+        help: {
+            label: "Help",
+            placeholder: "Default help text",
+            help: "This will be the text for helping the user understand the interaction with the widget. <strong>If left in blank, it will take the default text.</strong>",
+            button: "Default"
+        },
         selectType: "Select a type from the following options"
     },
     widgets: {

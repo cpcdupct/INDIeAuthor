@@ -111,20 +111,21 @@ indieauthor.transform.rules.Image = {
         var template;
 
         if (parent.type == 'section-container')
-            template = this.templateWithParent(element);
+            template = this.templateWithParent();
         else
-            template = this.templateWithoutParent(element);
+            template = this.templateWithoutParent();
 
         return indieauthor.renderTemplate(template, {
             imageurl: element.data.image,
             caption: indieauthor.transform.prepareString(element.data.text),
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ImageTextOver { Image { url '{{{imageurl}}}', Original }, Text { html '<p>{{{caption}}}</p>' } } "
+        return "Widget '{{{name}}}': ImageTextOver { help '{{{help}}}', Image { url '{{{imageurl}}}', Original }, Text { html '<p>{{{caption}}}</p>' } } "
     },
-    templateWithParent: function (element) {
+    templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } "
     }
 }
@@ -158,14 +159,15 @@ indieauthor.transform.rules.ImageAndText = {
         return indieauthor.renderTemplate(template, {
             text: indieauthor.transform.prepareString(element.data.text),
             image: element.data.image,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } ";
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ImageTextRight { Image { url '{{{image}}}', Original}, Text { html '{{{text}}}' } }";
+        return "Widget '{{{name}}}': ImageTextRight { help '{{{help}}}', Image { url '{{{image}}}', Original}, Text { html '{{{text}}}' } }";
     }
 }
 
@@ -244,7 +246,7 @@ indieauthor.transform.rules.ColumnLayout = {
 
 indieauthor.transform.rules.TabsContainer = {
     do: function (element) {
-        var template = "row { column { width '12' Widget '{{{name}}}' : HorizontalTabs {[ {{{tabs}}} ]} } } ";
+        var template = "row { column { width '12' Widget '{{{name}}}' : HorizontalTabs { help '{{{help}}}', [ {{{tabs}}} ]} } } ";
         var tabsContent = [];
         for (var i = 0; i < element.data.length; i++) {
             var tabContainer = element.data[i];
@@ -253,7 +255,8 @@ indieauthor.transform.rules.TabsContainer = {
 
         return indieauthor.renderTemplate(template, {
             tabs: tabsContent,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     }
 }
@@ -276,7 +279,7 @@ indieauthor.transform.rules.TabContent = {
 
 indieauthor.transform.rules.AcordionContainer = {
     do: function (element) {
-        var template = "row { column { width '12' Widget '{{{name}}}' : VerticalAccordion {[ {{{tabs}}} ]} } } ";
+        var template = "row { column { width '12' Widget '{{{name}}}' : VerticalAccordion { help '{{{help}}}', [ {{{tabs}}} ]} } } ";
         var tabsContent = [];
         for (var i = 0; i < element.data.length; i++) {
             var acordionContent = element.data[i];
@@ -285,7 +288,8 @@ indieauthor.transform.rules.AcordionContainer = {
 
         return indieauthor.renderTemplate(template, {
             tabs: tabsContent,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     }
 }
@@ -322,14 +326,15 @@ indieauthor.transform.rules.AnimationContainer = {
             height: element.params.height,
             completeImage: element.params.image,
             images: imageList,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } "
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': AnimationInOut { { awidth: Text{ html '{{{width}}}'},  background: Image { url '{{{completeImage}}}', Original }, imagelist: [ {{{images}}} ], aheight: Text { html '{{{height}}}'} } }";
+        return "Widget '{{{name}}}': AnimationInOut { help '{{{help}}}', { awidth: Text{ html '{{{width}}}'},  background: Image { url '{{{completeImage}}}', Original }, imagelist: [ {{{images}}} ], aheight: Text { html '{{{height}}}'} } }";
     },
     getAnimationItem: function (item) {
         var template = "Image { url '{{{image}}}', Original } ";
@@ -353,14 +358,15 @@ indieauthor.transform.rules.DragdropContainer = {
 
         return indieauthor.renderTemplate(template, {
             terms: terms,
-            name: element.params.name
+            name: element.params.name,
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } "
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': TextualDragAndDrop { [ {{{terms}}} ] }";
+        return "Widget '{{{name}}}': TextualDragAndDrop { help '{{{help}}}', [ {{{terms}}} ] }";
     },
     getDragDropItem: function (item) {
         return indieauthor.renderTemplate("{ term: Text { html '{{{term}}}' }, definition: Text { html '{{{definition}}}' } }", {
@@ -383,14 +389,15 @@ indieauthor.transform.rules.AudioTermContainer = {
 
         return indieauthor.renderTemplate(rootTemplate, {
             terms: terms,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } "
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ContainerAudioTerm { [{{{terms}}}] }";
+        return "Widget '{{{name}}}': ContainerAudioTerm { help '{{{help}}}', [{{{terms}}}] }";
     },
     getAudioItemContent: function (element) {
         var template = "{ URL: Text { html '{{{audio}}}' }, term: Text { html '{{{term}}}' }, definition: Text { html '{{{definition}}}' }  }";
@@ -416,14 +423,15 @@ indieauthor.transform.rules.Test = {
 
         return indieauthor.renderTemplate(rootTemplate, {
             terms: terms,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } "
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ContainerTest { [{{{terms}}}] }";
+        return "Widget '{{{name}}}': ContainerTest { help '{{{help}}}', [{{{terms}}}] }";
     },
     questions: {
         GapQuestion: {
@@ -491,14 +499,15 @@ indieauthor.transform.rules.ChooseOption = {
             image: element.data.image,
             answers: element.data.options,
             correct: correctIndex,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } "
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ChooseOption { { questionText: Text{html '{{{text}}}' }, questionImage: Image { url '{{{image}}}', Original },{{#each answers}} response{{inc @index}}: Text{html '{{text}}' },{{/each}} correct: Int{ {{{correct}}} } } }";
+        return "Widget '{{{name}}}': ChooseOption { help '{{{help}}}', { questionText: Text{html '{{{text}}}' }, questionImage: Image { url '{{{image}}}', Original },{{#each answers}} response{{inc @index}}: Text{html '{{text}}' },{{/each}} correct: Int{ {{{correct}}} } } }";
     }
 }
 
@@ -514,14 +523,15 @@ indieauthor.transform.rules.ImageAndSoundContainer = {
 
         return indieauthor.renderTemplate(template, {
             items: items,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         })
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } "
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ImageSound { [ {{{items}}} ] }"
+        return "Widget '{{{name}}}': ImageSound { help '{{{help}}}', [ {{{items}}} ] }"
     },
     getImageAndSoundItem: function (item) {
         var template = "{ sound: Text { html '{{{audio}}}' }, contentImage: Image { url '{{{image}}}', Original }, contentText: Text { html '{{{text}}}'} }";
@@ -545,14 +555,15 @@ indieauthor.transform.rules.SchemaContainer = {
 
         return indieauthor.renderTemplate(template, {
             images: images,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         });
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } ";
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': Schema { [ {{{images}}} ] }"
+        return "Widget '{{{name}}}': Schema { help '{{{help}}}', [ {{{images}}} ] }"
     },
     getSchemaItem: function (item) {
         var template = "Image { url '{{{image}}}', Original }";
@@ -574,14 +585,15 @@ indieauthor.transform.rules.CouplesContainer = {
 
         return indieauthor.renderTemplate(template, {
             couples: couples,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         })
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } ";
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': Couples { [ {{{couples}}} ] }"
+        return "Widget '{{{name}}}': Couples { help '{{{help}}}', [ {{{couples}}} ] }"
     },
     getCoupleItem: function (item) {
         var templateItem = "{ contentText: Text { html '{{{text}}}' }, contentImage: Image { url '{{{image}}}', Original } }";
@@ -606,14 +618,15 @@ indieauthor.transform.rules.Modal = {
         return indieauthor.renderTemplate(template, {
             items: items,
             name: indieauthor.transform.prepareString(element.params.name),
-            text: indieauthor.transform.prepareString(element.params.text)
+            text: indieauthor.transform.prepareString(element.params.text),
+            help: indieauthor.transform.prepareString(element.params.help)
         })
     },
     templateWithParent: function () {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } ";
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ModalButton { { name: Text { html '{{{text}}}' }, content: [{{{items}}}] } }"
+        return "Widget '{{{name}}}': ModalButton { help '{{{help}}}', { name: Text { html '{{{text}}}' }, content: [{{{items}}}] } }"
     }
 }
 
@@ -630,7 +643,8 @@ indieauthor.transform.rules.TrueFalseContainer = {
 
         return indieauthor.renderTemplate(template, {
             items: trueFalseItems,
-            name: indieauthor.transform.prepareString(element.params.name)
+            name: indieauthor.transform.prepareString(element.params.name),
+            help: indieauthor.transform.prepareString(element.params.help)
         })
     },
     getTrueFalseItem: function (element) {
@@ -645,7 +659,7 @@ indieauthor.transform.rules.TrueFalseContainer = {
         return "row { column { width '12' " + this.templateWithoutParent() + " } } ";
     },
     templateWithoutParent: function () {
-        return "Widget '{{{name}}}': ContainerTrueFalse { [ {{{items}}} ] }"
+        return "Widget '{{{name}}}': ContainerTrueFalse { help '{{{help}}}',  [ {{{items}}} ] }"
     }
 }
 

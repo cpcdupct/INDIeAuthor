@@ -28,7 +28,8 @@ indieauthor.widgets.Image = {
     getInputs: function (modelValues) {
         var templateValues = {
             instanceId: modelValues.id,
-            instanceName: modelValues.params.name
+            instanceName: modelValues.params.name,
+            help: modelValues.params.help
         }
 
         if (!indieauthor.utils.isEmpty(modelValues.data)) {
@@ -36,7 +37,7 @@ indieauthor.widgets.Image = {
             templateValues.image = modelValues.data.image;
         }
 
-        var inputTemplate = '<form id="f-{{instanceId}}"><div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.Image.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.Image.form.image.placeholder"}}" value="{{image}}" autocomplete="off" /><small class="form-text text-muted">{{translate "widgets.Image.form.image.help"}}</small></div> {{#if image}} <div class="form-group"><p>{{translate "widgets.Image.form.preview"}}</p><img class="img-fluid" src="{{image}}"/></div>{{/if}}<div class="form-group"><label for="text">{{translate "widgets.Image.form.caption.label"}}</label><textarea class="form-control texteditor" name="text">{{text}}</textarea><small class="form-text text-muted">{{translate "widgets.Image.form.caption.help"}}</small></div></form>';
+        var inputTemplate = '<form id="f-{{instanceId}}"><div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"> <label for="help">{{translate "common.help.label"}}</label> <div class="input-group mb-3"> <input name="help" type="text" class="form-control" placeholder="{{translate "common.help.placeholder"}}" value="{{help}}"> <div class="input-group-append"> <button class="btn btn-indie" type="button" onclick="$(\'input[name=help]\').val(\'\')">{{translate "common.help.button"}}</button> </div></div><small class="form-text text-muted">{{translate "common.help.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.Image.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.Image.form.image.placeholder"}}" value="{{image}}" autocomplete="off" /><small class="form-text text-muted">{{translate "widgets.Image.form.image.help"}}</small></div> {{#if image}} <div class="form-group"><p>{{translate "widgets.Image.form.preview"}}</p><img class="img-fluid" src="{{image}}"/></div>{{/if}}<div class="form-group"><label for="text">{{translate "widgets.Image.form.caption.label"}}</label><textarea class="form-control texteditor" name="text">{{text}}</textarea><small class="form-text text-muted">{{translate "widgets.Image.form.caption.help"}}</small></div></form>';
         var rendered = indieauthor.renderTemplate(inputTemplate, templateValues);
 
         return {
@@ -55,7 +56,8 @@ indieauthor.widgets.Image = {
     emptyData: function () {
         var object = {
             params: {
-                name: ""
+                name: "",
+                help: ""
             },
             data: {
                 text: "",
@@ -69,6 +71,7 @@ indieauthor.widgets.Image = {
         modelObject.data.text = formJson.text;
         modelObject.data.image = formJson.image;
         modelObject.params.name = formJson.instanceName;
+        modelObject.params.help = formJson.help;
     },
     validateModel: function (widgetInstance) {
         var keys = [];

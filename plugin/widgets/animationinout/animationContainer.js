@@ -26,15 +26,15 @@ indieauthor.widgets.AnimationContainer = {
         return '<div class="widget-animation-container" data-widget="{{widget}}" data-type="{{type}}" data-id="{{id}}"><div class="widget"><div class="b1"><img src="' + this.icon + '" class="img-fluid drag-item" /> </div><div class="b2" data-prev><span>{{translate "widgets.AnimationContainer.label"}}</span></div><div class="b3" data-toolbar>  </div></div><div data-widget="{{widget}}" data-type="{{type}}" class="element-container dragula-container" data-content></div></div>';
     },
     getInputs: function (modelObject) {
-        var template = '<form id="f-{{id}}"> <div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small></div><div class="form-group"><label for="width">{{translate "widgets.AnimationContainer.form.width.label"}}</label><input type="number" name="width" class="form-control" value="{{width}}" placeholder="{{translate "widgets.AnimationContainer.form.width.placeholder"}}" required></input><small class="form-text text-muted">{{translate "widgets.AnimationContainer.form.width.help"}}.</small></div><div class="form-group"><label for="height">{{translate "widgets.AnimationContainer.form.height.label"}}</label><input type="number" name="height" class="form-control" value="{{height}}" placeholder="{{translate "widgets.AnimationContainer.form.height.placeholder"}}" required></input><small class="form-text text-muted">{{translate "widgets.AnimationContainer.form.height.help"}}.</small></div><div class="form-group"><label for="image">{{translate "widgets.AnimationContainer.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.AnimationContainer.form.image.placeholder"}}" value="{{image}}" autocomplete="off"/><small class="form-text text-muted">{{translate "widgets.AnimationContainer.form.image.help"}}</small></div>{{#if image}}<div class="form-group"> <p>{{translate "widgets.AnimationContainer.form.prev"}}</p><img class="img-fluid" src="{{image}}"/> </div>{{/if}}</form>';
+        var template = '<form id="f-{{id}}"> <div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small></div><div class="form-group"> <label for="help">{{translate "common.help.label"}}</label> <div class="input-group mb-3"> <input name="help" type="text" class="form-control" placeholder="{{translate "common.help.placeholder"}}" value="{{help}}"> <div class="input-group-append"> <button class="btn btn-indie" type="button" onclick="$(\'input[name=help]\').val(\'\')">{{translate "common.help.button"}}</button> </div></div><small class="form-text text-muted">{{translate "common.help.help"}}</small> </div><div class="form-group"><label for="width">{{translate "widgets.AnimationContainer.form.width.label"}}</label><input type="number" name="width" class="form-control" value="{{width}}" placeholder="{{translate "widgets.AnimationContainer.form.width.placeholder"}}" required></input><small class="form-text text-muted">{{translate "widgets.AnimationContainer.form.width.help"}}.</small></div><div class="form-group"><label for="height">{{translate "widgets.AnimationContainer.form.height.label"}}</label><input type="number" name="height" class="form-control" value="{{height}}" placeholder="{{translate "widgets.AnimationContainer.form.height.placeholder"}}" required></input><small class="form-text text-muted">{{translate "widgets.AnimationContainer.form.height.help"}}.</small></div><div class="form-group"><label for="image">{{translate "widgets.AnimationContainer.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.AnimationContainer.form.image.placeholder"}}" value="{{image}}" autocomplete="off"/><small class="form-text text-muted">{{translate "widgets.AnimationContainer.form.image.help"}}</small></div>{{#if image}}<div class="form-group"> <p>{{translate "widgets.AnimationContainer.form.prev"}}</p><img class="img-fluid" src="{{image}}"/> </div>{{/if}}</form>';
 
         var rendered = indieauthor.renderTemplate(template, {
             width: modelObject.params.width,
             height: modelObject.params.height,
             image: modelObject.params.image,
             id: modelObject.id,
-            instanceName: modelObject.params.name
-
+            instanceName: modelObject.params.name,
+            help: modelObject.params.help
         });
 
         return {
@@ -54,7 +54,8 @@ indieauthor.widgets.AnimationContainer = {
                 name: "",
                 width: 0,
                 height: 0,
-                image: ""
+                image: "",
+                help: ""
             },
             data: []
         };
@@ -66,6 +67,7 @@ indieauthor.widgets.AnimationContainer = {
         modelObject.params.height = parseInt(formJson.height);
         modelObject.params.image = formJson.image;
         modelObject.params.name = formJson.instanceName;
+        modelObject.params.help = formJson.help;
     },
     validateModel: function (widgetInstance) {
         var errors = [];
