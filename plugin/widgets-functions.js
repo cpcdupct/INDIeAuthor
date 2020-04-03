@@ -27,6 +27,7 @@ indieauthor.widgetFunctions.initTextEditor = function (content, origin, placehol
                 ico: 'p'
             }
         },
+        minimalLinks: true,
         removeformatPasted: true,
         tagsToRemove: ['script', 'link', 'style', 'img', 'applet', 'embed', 'noframes', 'iframe', 'noscript']
     });

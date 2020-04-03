@@ -129,7 +129,9 @@ indieauthor.migrate.functions = {
 
         if (element.widget == widgetType) {
             widgetInstances.push(element);
-        } else if (indieauthor.hasChildren(element.type)) {
+        }
+
+        if (indieauthor.hasChildren(element.type)) {
             var childrenElements = element.type == 'layout' ? [].concat.apply([], element.data) : element.data;
             for (var i = 0; i < childrenElements.length; i++) {
                 var child = childrenElements[i];
@@ -147,35 +149,35 @@ indieauthor.migrate.functions = {
      * @param {*} sections Array of sections
      */
     getWidgetsToAddHelpParameter: function (sections) {
-        var isHelpWidget = function (widget) {
-            return (["AcordionContainer", "AnimationContainer", "AudioTermContainer", "ChooseOption", "CouplesContainer", "DragdropContainer", "Image", "ImageAndSoundContainer", "ImageAndText", "Modal", "SchemaContainer", "TabsContainer", "Test", "TrueFalseContainer"].indexOf(widget) >= 0);
-        }
-
-        var findInstance = function (element) {
-            var widgetInstances = [];
-
-            if (isHelpWidget(element.widget)) {
-                widgetInstances.push(element);
-            } else if (indieauthor.hasChildren(element.type)) {
-                var childrenElements = element.type == 'layout' ? [].concat.apply([], element.data) : element.data;
-                for (var i = 0; i < childrenElements.length; i++) {
-                    var child = childrenElements[i];
-                    var instancesInChildren = findInstance(child);
-                    widgetInstances = widgetInstances.concat(instancesInChildren);
-                }
-            }
-
-            return widgetInstances;
-        }
-
         var widgetInstances = [];
 
         for (var i = 0; i < sections.length; i++) {
             var section = sections[i];
-            var instancesInSection = findInstance(section);
+            var instancesInSection = this.findHelpInstances(section);
             widgetInstances = widgetInstances.concat(instancesInSection);
         }
 
         return widgetInstances;
+    },
+    findHelpInstances: function (element) {
+        var widgetInstances = [];
+
+        if (this.isHelpWidget(element.widget)) {
+            widgetInstances.push(element);
+        }
+
+        if (indieauthor.hasChildren(element.type)) {
+            var childrenElements = element.type == 'layout' ? [].concat.apply([], element.data) : element.data;
+            for (var i = 0; i < childrenElements.length; i++) {
+                var child = childrenElements[i];
+                var instancesInChildren = this.findHelpInstances(child);
+                widgetInstances = widgetInstances.concat(instancesInChildren);
+            }
+        }
+
+        return widgetInstances;
+    },
+    isHelpWidget: function (widget) {
+        return (["AcordionContainer", "AnimationContainer", "AudioTermContainer", "ChooseOption", "CouplesContainer", "DragdropContainer", "Image", "ImageAndSoundContainer", "ImageAndText", "Modal", "SchemaContainer", "TabsContainer", "Test", "TrueFalseContainer"].indexOf(widget) >= 0);
     }
 }
