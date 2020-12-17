@@ -80,15 +80,7 @@ indieauthor.api.clearContent = function () {
  */
 indieauthor.api.loadModelIntoPlugin = function (model, onLoaded, onError) {
     try {
-
         var sections = [];
-
-        if (indieauthor.migrate.migrationNeeded(model)) {
-            console.log("MIGRATION: Model migration started. Model version " + model.version + " ---> " + "Library version " + indieauthor.model.CURRENT_MODEL_VERSION);
-            sections = indieauthor.migrate.runMigration(model);
-            console.log("MIGRATION: Model migration ended.");
-        } else
-            sections = model.sections;
 
         $(indieauthor.container).toggle(1000, function () {
             $(indieauthor.container).empty();
