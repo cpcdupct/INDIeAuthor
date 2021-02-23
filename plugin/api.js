@@ -1,3 +1,39 @@
+// EDITOR FUNCTIONS
+indieauthor.api.editorFunctions = {};
+
+indieauthor.api.editorFunctions.getEditorContent = function (onSuccess, onError) {
+    if (indieauthor.api.validateContent(false)) {
+        var sections = indieauthor.model.sections;
+        onSuccess(sections);
+    } else {
+        onError(indieauthor.strings.messages.contentErrors);
+    }
+}
+
+indieauthor.api.editorFunctions.loadModelIntoPlugin = function (model, onLoaded, onError) {
+    try {
+        var sections = model.sections;
+
+        $(indieauthor.container).toggle(1000, function () {
+            $(indieauthor.container).empty();
+            indieauthor.model.sections = sections;
+
+            for (var i = 0; i < indieauthor.model.sections.length; i++) {
+                var element = indieauthor.model.sections[i];
+                indieauthor.loadElement(indieauthor.container, element, true);
+            }
+
+            $(indieauthor.container).toggle(1000, function () {
+                onLoaded();
+            });
+        })
+    } catch (err) {
+        $(indieauthor.container).empty();
+        indieauthor.model.sections = [];
+        onError(err);
+    }
+}
+
 /**
  * If the editor content is valid, obtains the current model and returns its sections in an onSuccess function. 
  * 
