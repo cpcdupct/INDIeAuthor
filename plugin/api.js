@@ -80,8 +80,7 @@ indieauthor.api.clearContent = function () {
  */
 indieauthor.api.loadModelIntoPlugin = function (model, onLoaded, onError) {
     try {
-        var sections = [];
-
+        var sections = model.sections;
         $(indieauthor.container).toggle(1000, function () {
             $(indieauthor.container).empty();
             indieauthor.model.sections = sections;
