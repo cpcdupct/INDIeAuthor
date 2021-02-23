@@ -283,7 +283,7 @@ indieauthor.accept = function (element, target) {
     var itemType = indieauthor.polyfill.getData(originElement, 'type');
     var itemWidget = indieauthor.polyfill.getData(originElement, 'widget');
     var targetType = indieauthor.polyfill.getData(target, 'type');
-    var targetWidget = indieauthor.polyfill.getData(target, 'widget');;
+    var targetWidget = indieauthor.polyfill.getData(target, 'widget');
 
     // We ask the widgets if the target is not the palette
     if (target != indieauthor.palette && (!indieauthor.canDrop(itemType, itemWidget, targetType, targetWidget)))
@@ -415,7 +415,7 @@ indieauthor.openSectionSettings = function (id) {
     if (!modelObject) throw new Error('modelObject cannot be null');
 
     if (!modelObject.hasOwnProperty('bakcgroundType')) {
-        if (indieauthor.utils.isURL(modelObject.image))
+        if (indieauthor.utils.isIndieResource(modelObject.image))
             modelObject.bakcgroundType = 'BackgroundImage';
         else
             modelObject.bakcgroundType = 'BackgroundColour';
@@ -467,7 +467,7 @@ indieauthor.openSectionSettings = function (id) {
 
         var errors = [];
 
-        if (formData.type == 'BackgroundImage' && !indieauthor.utils.isURL(formData.image)) {
+        if (formData.type == 'BackgroundImage' && !indieauthor.utils.isIndieResource(formData.image)) {
             var errorText = indieauthor.strings.errors.section.typeImageNotSelected;
             errors.push(errorText);
         }
@@ -549,7 +549,7 @@ indieauthor.createViewElement = function (elementType, widget, viewElement, data
 
     // MODEL CREATION
     if (modelCreation) {
-        var modelObject = indieauthor.model.createObject(elementType, widget, dataElementId, widgetInfo);;
+        var modelObject = indieauthor.model.createObject(elementType, widget, dataElementId, widgetInfo);
 
         if (parentType == 'layout')
             indieauthor.model.appendObject(modelObject, inPositionElementId, parentContainerId, parentContainerIndex);

@@ -61,7 +61,7 @@ indieauthor.widgets.ImageAndSoundItem = {
         var errors = [];
 
         if (!indieauthor.utils.isIndieResource(widgetInstance.data.audio)) errors.push("ImageAndSoundItem.audio.invalid");
-        if (!indieauthor.utils.isURL(widgetInstance.data.image)) errors.push("ImageAndSoundItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("ImageAndSoundItem.image.invalid");
         if (widgetInstance.data.text.length == 0) errors.push("ImageAndSoundItem.text.invalid");
 
         if (errors.length > 0)
@@ -76,7 +76,7 @@ indieauthor.widgets.ImageAndSoundItem = {
         var errors = [];
 
         if (!indieauthor.utils.isIndieResource(formData.audio)) errors.push("ImageAndSoundItem.audio.invalid");
-        if (!indieauthor.utils.isURL(formData.image)) errors.push("ImageAndSoundItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("ImageAndSoundItem.image.invalid");
         if (formData.text.length == 0) errors.push("ImageAndSoundItem.text.invalid");
 
         return errors;

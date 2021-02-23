@@ -242,7 +242,7 @@ indieauthor.undoredo.actions = {
             // Add element to the targe location   
             var targetParent = indieauthor.model.findObject(data.target.id);
             var inPosition;
-            var elementsArray = (targetParent.type == 'layout') ? elementsArray = targetParent.data[data.target.index] : elementsArray = targetParent.data;
+            var elementsArray = (targetParent.type == 'layout') ? targetParent.data[data.target.index] : targetParent.data;
 
             if (data.target.position == -1 || elementsArray.length == 0)
                 inPosition = -1;
@@ -260,7 +260,7 @@ indieauthor.undoredo.actions = {
             // Add element to the original location  
             var sourceParent = indieauthor.model.findObject(data.source.id);
             var inPosition;
-            var elementsArray = (sourceParent.type == 'layout') ? elementsArray = sourceParent.data[data.source.index] : elementsArray = sourceParent.data;
+            var elementsArray = (sourceParent.type == 'layout') ? sourceParent.data[data.source.index] : sourceParent.data;
 
             if (data.source.position == -1 || elementsArray.length == 0)
                 inPosition = -1;

@@ -72,7 +72,7 @@ indieauthor.widgets.AnimationContainer = {
 
         if (!widgetInstance.params.width > 0) errors.push("AnimationContainer.width.invalid");
         if (!widgetInstance.params.height > 0) errors.push("AnimationContainer.height.invalid");
-        if (!indieauthor.utils.isURL(widgetInstance.params.image)) errors.push("AnimationContainer.image.invalid");
+        if (!indieauthor.utils.isIndieResource(widgetInstance.params.image)) errors.push("AnimationContainer.image.invalid");
         if (widgetInstance.data.length == 0) errors.push("AnimationContainer.data.empty");
 
         if (!indieauthor.utils.hasNameInParams(widgetInstance))
@@ -93,7 +93,7 @@ indieauthor.widgets.AnimationContainer = {
 
         if (formData.width <= 0) errors.push("AnimationContainer.width.invalid");
         if (formData.height <= 0) errors.push("AnimationContainer.height.invalid");
-        if (!indieauthor.utils.isURL(formData.image)) errors.push("AnimationContainer.image.invalid");
+        if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("AnimationContainer.image.invalid");
 
         if (formData.instanceName.length == 0)
             errors.push("common.name.invalid");

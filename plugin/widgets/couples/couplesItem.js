@@ -64,7 +64,7 @@ indieauthor.widgets.CouplesItem = {
         var errors = [];
 
         if (widgetInstance.data.text.length == 0) errors.push("CouplesItem.text.invalid");
-        if (!indieauthor.utils.isURL(widgetInstance.data.image)) errors.push("CouplesItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("CouplesItem.image.invalid");
 
         if (errors.length > 0)
             return {
@@ -78,7 +78,7 @@ indieauthor.widgets.CouplesItem = {
         var errors = [];
 
         if (formData.text.length == 0) errors.push("CouplesItem.text.invalid");
-        if (!indieauthor.utils.isURL(formData.image)) errors.push("CouplesItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("CouplesItem.image.invalid");
 
         return errors;
     },

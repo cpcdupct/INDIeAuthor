@@ -109,7 +109,7 @@ indieauthor.widgets.ChooseOption = {
         if (widgetInstance.data.text.length == 0)
             errors.push("ChooseOption.text.invalid");
 
-        if (!indieauthor.utils.isURL(widgetInstance.data.image))
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image))
             errors.push("ChooseOption.image.invalid");
 
         if (this.extensions.optionsWithoutCorrect(widgetInstance.data.options))
@@ -155,7 +155,7 @@ indieauthor.widgets.ChooseOption = {
         if (formData.text.length == 0)
             errors.push("ChooseOption.text.invalid");
 
-        if (!indieauthor.utils.isURL(formData.image))
+        if (!indieauthor.utils.isIndieResource(formData.image))
             errors.push("ChooseOption.image.invalid");
 
         if (this.extensions.optionsWithoutCorrect(options))

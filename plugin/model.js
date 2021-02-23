@@ -294,7 +294,7 @@ indieauthor.model.validate = function () {
         if (section.data.length == 0)
             sectionKeys.push("section.emptyData");
 
-        if (section.bakcgroundType && (section.bakcgroundType == 'BackgroundImage' && !indieauthor.utils.isURL(section.image)))
+        if (section.bakcgroundType && (section.bakcgroundType == 'BackgroundImage' && !indieauthor.utils.isIndieResource(section.image)))
             sectionKeys.push("section.invalidImage");
 
         if (!section.name || (section.name.length <= 0))

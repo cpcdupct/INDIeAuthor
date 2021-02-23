@@ -70,7 +70,7 @@ indieauthor.widgets.SimpleImage = {
     validateModel: function (widgetInstance) {
         var keys = [];
 
-        if (!indieauthor.utils.isURL(widgetInstance.data.image))
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image))
             keys.push("SimpleImage.image.invalid");
 
         if (!indieauthor.utils.hasNameInParams(widgetInstance))
@@ -90,7 +90,7 @@ indieauthor.widgets.SimpleImage = {
     validateForm: function (formData, instanceId) {
         var keys = [];
 
-        if (!indieauthor.utils.isURL(formData.image))
+        if (!indieauthor.utils.isIndieResource(formData.image))
             keys.push("SimpleImage.image.invalid");
 
         if (formData.instanceName.length == 0)
