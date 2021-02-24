@@ -76,7 +76,7 @@ indieauthor.widgets.Image = {
     validateModel: function (widgetInstance) {
         var keys = [];
 
-        if (!indieauthor.utils.isURL(widgetInstance.data.image))
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image))
             keys.push("Image.image.invalid");
 
         if (!widgetInstance.data.text || (widgetInstance.data.text.length == 0))
@@ -102,7 +102,7 @@ indieauthor.widgets.Image = {
     validateForm: function (formData, instanceId) {
         var keys = [];
 
-        if (!indieauthor.utils.isURL(formData.image))
+        if (!indieauthor.utils.isIndieResource(formData.image))
             keys.push("Image.image.invalid");
 
         if (formData.instanceName.length == 0)

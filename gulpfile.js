@@ -45,7 +45,7 @@ gulp.task('build-dev', function (done) {
 })
 
 gulp.task('scripts', function (done) {
-    gulp.src([file('widgets.js'), file('indieauthor.js'), file('plugins.js'), file('model.js'), file('widgets-functions.js'), file('widgets/**/*.js'), file('polyfill.js'), file('transform.js'), file('migrate.js'), file('undoredo.js'), file('api.js'), file('utils.js')])
+    gulp.src([file('widgets.js'), file('indieauthor.js'), file('plugins.js'), file('model.js'), file('widgets-functions.js'), file('widgets/**/*.js'), file('polyfill.js'), file('undoredo.js'), file('api.js'), file('utils.js')])
         .pipe(concat('editor.js'))
         .pipe(strip()) // For deleting the comments
         .pipe(minify({

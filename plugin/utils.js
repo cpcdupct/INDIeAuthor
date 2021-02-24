@@ -196,7 +196,7 @@ indieauthor.utils.array_move = function (arr, old_index, new_index) {
 
 
 indieauthor.utils.swap = function (elementOrigin, elementTarget) {
-    div1 = $(elementOrigin);
+    hasNameInParams = $(elementOrigin);
     div2 = $(elementTarget);
 
     tdiv1 = div1.clone();
@@ -237,7 +237,7 @@ indieauthor.utils.isUrlWithinDomains = function (url, allowedDomains) {
 }
 
 indieauthor.utils.isIndieResource = function (url) {
-    return indieauthor.utils.isUrlWithinDomains(url, ["https://indiemedia.upct.es", "https://multimediarepository.blob.core.windows.net"]);
+    return indieauthor.utils.isUrlWithinDomains(url, ["https://indiemedia.upct.es", "http://indieopen.upct.es", "https://multimediarepository.blob.core.windows.net"]);
 }
 
 indieauthor.utils.isOnlyOneWord = function (string) {
@@ -258,7 +258,7 @@ indieauthor.utils.hasNameInParams = function (widgetInstance) {
 }
 
 indieauthor.utils.isInteractiveVideo = function (url) {
-    return indieauthor.utils.isUrlWithinDomains(url, ["https://indieauthor.upct.es", "http://212.128.28.131"]);
+    return indieauthor.utils.isUrlWithinDomains(url, ["https://indieopen.upct.es"]);
 }
 
 indieauthor.utils.getAllUrlParams = function (url) {

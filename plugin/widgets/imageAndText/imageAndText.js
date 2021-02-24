@@ -75,7 +75,7 @@ indieauthor.widgets.ImageAndText = {
 
         if (widgetInstance.data.text.length == 0) errors.push("ImageAndText.text.invalid");
         if (indieauthor.widgetFunctions.isEmptyText(widgetInstance.data.text)) errors.push("ImageAndText.text.invalid");
-        if (!indieauthor.utils.isURL(widgetInstance.data.image)) errors.push("ImageAndText.image.invalid");
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("ImageAndText.image.invalid");
 
         if (!indieauthor.utils.hasNameInParams(widgetInstance))
             errors.push("common.name.invalid");
@@ -96,7 +96,7 @@ indieauthor.widgets.ImageAndText = {
 
         if (formData.textblockText.length == 0) errors.push("ImageAndText.text.invalid");
         if (indieauthor.widgetFunctions.isEmptyText(formData.textblockText)) errors.push("TextBlock.text.invalid");
-        if (!indieauthor.utils.isURL(formData.image)) errors.push("ImageAndText.image.invalid");
+        if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("ImageAndText.image.invalid");
 
         if (formData.instanceName.length == 0)
             errors.push("common.name.invalid");

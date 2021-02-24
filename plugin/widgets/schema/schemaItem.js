@@ -57,7 +57,7 @@ indieauthor.widgets.SchemaItem = {
     validateModel: function (widgetInstance) {
         var errors = [];
 
-        if (!indieauthor.utils.isURL(widgetInstance.data.image)) errors.push("SchemaItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("SchemaItem.image.invalid");
 
         if (errors.length > 0)
             return {
@@ -70,7 +70,7 @@ indieauthor.widgets.SchemaItem = {
     validateForm: function (formData) {
         var errors = [];
 
-        if (!indieauthor.utils.isURL(formData.image)) errors.push("SchemaItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("SchemaItem.image.invalid");
 
         return errors;
     },

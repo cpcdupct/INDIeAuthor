@@ -5,10 +5,10 @@ indieauthor.model.sections = []; // MODEL SECTIONS
 indieauthor.model.currentErrors = [];
 
 // Current model version
-indieauthor.model.CURRENT_MODEL_VERSION = 4;
+indieauthor.model.CURRENT_MODEL_VERSION = 5;
 
 // Version history
-indieauthor.model.VERSION_HISTORY = [1, 2, 3, 4];
+indieauthor.model.VERSION_HISTORY = [1, 2, 3, 4, 5];
 
 /**
  * Creates and pushes a section into the model
@@ -23,7 +23,6 @@ indieauthor.model.createSection = function () {
         widget: "Section",
         bookmark: "",
         image: "",
-        bakcgroundType: 'BackgroundColour',
         data: []
     };
 
@@ -293,9 +292,6 @@ indieauthor.model.validate = function () {
 
         if (section.data.length == 0)
             sectionKeys.push("section.emptyData");
-
-        if (section.bakcgroundType && (section.bakcgroundType == 'BackgroundImage' && !indieauthor.utils.isURL(section.image)))
-            sectionKeys.push("section.invalidImage");
 
         if (!section.name || (section.name.length <= 0))
             sectionKeys.push("section.invalidName");

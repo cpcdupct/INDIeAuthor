@@ -1,4 +1,4 @@
-# INDIeAuthor - v 1.3.3
+# INDIeAuthor - v 1.4.0
 
 ![logoIndie](http://indie.upct.es/images/logos/indie_vertical_ColorOscuro_small.png)
 

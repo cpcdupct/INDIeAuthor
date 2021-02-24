@@ -13,9 +13,6 @@ indieauthor.model = {};
 /** Functions for undo and redo */
 indieauthor.undoredo = {};
 
-/** Functions for migration versions */
-indieauthor.migrate = {};
-
 /** Functions for transforming the content */
 indieauthor.transform = {};
 
@@ -283,7 +280,7 @@ indieauthor.accept = function (element, target) {
     var itemType = indieauthor.polyfill.getData(originElement, 'type');
     var itemWidget = indieauthor.polyfill.getData(originElement, 'widget');
     var targetType = indieauthor.polyfill.getData(target, 'type');
-    var targetWidget = indieauthor.polyfill.getData(target, 'widget');;
+    var targetWidget = indieauthor.polyfill.getData(target, 'widget');
 
     // We ask the widgets if the target is not the palette
     if (target != indieauthor.palette && (!indieauthor.canDrop(itemType, itemWidget, targetType, targetWidget)))
@@ -414,45 +411,23 @@ indieauthor.openSectionSettings = function (id) {
     var modelObject = indieauthor.model.findObject(id);
     if (!modelObject) throw new Error('modelObject cannot be null');
 
-    if (!modelObject.hasOwnProperty('bakcgroundType')) {
-        if (indieauthor.utils.isURL(modelObject.image))
-            modelObject.bakcgroundType = 'BackgroundImage';
-        else
-            modelObject.bakcgroundType = 'BackgroundColour';
-    }
-
     // 2 Creates the form
-    var inputs = '<form id="f-{{id}}"> <div class="form-group"> <label for="name">{{translate "sections.form.name.label"}}</label> <input type="text" name="name" class="form-control" value="{{name}}" placeholder="{{translate "sections.form.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "sections.form.name.help"}}</small> </div><div class="form-group"> <label for="bookmark">{{translate "sections.form.bookmark.label"}}</label> <input type="text" name="bookmark" class="form-control" value="{{bookmark}}" placeholder="{{translate "sections.form.bookmark.placeholder"}}" maxLength="40" autocomplete="off" required/> <small class="form-text text-muted">{{translate "sections.form.bookmark.help"}}</small></div><div class="form-group"> <label for="type">{{translate "sections.form.type.label"}}</label> <select name="type" class="form-control" required> <option value="BackgroundColour">{{translate "sections.form.type.bc"}}</option> <option value="BackgroundImage">{{translate "sections.form.type.bi"}}</option> </select> <small class="form-text text-muted">{{translate "sections.form.type.help"}}</small> </div><div class="form-group" style="display: none" data-select="set-image"> <label for="image">{{translate "sections.form.image.label"}}</label> <input type="url" class="form-control" name="image" autocomplete="off" placeholder="{{translate "sections.form.image.placeholder"}}" value="{{image}}"/> <small class="form-text text-muted">{{translate "sections.form.image.help"}}</small>{{#if image}}<p>{{translate "sections.form.preview"}}</p><img class="img-fluid" src="{{image}}"/>{{/if}}</div></form>';
+    var inputs = '<form id="f-{{id}}"> <div class="form-group"> <label for="name">{{translate "sections.form.name.label"}}</label> <input type="text" name="name" class="form-control" value="{{name}}" placeholder="{{translate "sections.form.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted" >{{translate "sections.form.name.help"}}</small > </div><div class="form-group"> <label for="bookmark">{{translate "sections.form.bookmark.label"}}</label> <input type="text" name="bookmark" class="form-control" value="{{bookmark}}" placeholder="{{translate "sections.form.bookmark.placeholder"}}" maxLength="40" autocomplete="off" required/> <small class="form-text text-muted" >{{translate "sections.form.bookmark.help"}}</small > </div></form>';
 
     document.getElementById('modal-settings-body').innerHTML = indieauthor.renderTemplate(inputs, {
         id: id,
         name: modelObject.name,
-        image: modelObject.image,
         bookmark: modelObject.bookmark
     });
 
     document.getElementById('modal-settings-tittle').innerHTML = "Section: " + modelObject.name;
 
-    $("#modal-settings [name='type']").val(modelObject.bakcgroundType);
-    if (modelObject.bakcgroundType == 'BackgroundImage') $("[data-select='set-image']").show();
     $("#modal-settings").modal({
         show: true,
         keyboard: false,
         focus: true,
         backdrop: 'static'
     });
-
-    $("#modal-settings [name='type']").on('change', function () {
-        var selected = $("#modal-settings [name='type']").val();
-
-        if (selected == 'BackgroundImage')
-            $("[data-select='set-image']").show();
-        else {
-            $("[data-select='set-image']").hide();
-            $("#modal-settings [name='image']").val('');
-        }
-    })
-
 
     // 3 Associate functions to the modal
     var form = document.getElementById('f-' + id);
@@ -464,13 +439,7 @@ indieauthor.openSectionSettings = function (id) {
     $(form).on('submit', function (e) {
         e.preventDefault();
         var formData = indieauthor.utils.toJSON(form);
-
         var errors = [];
-
-        if (formData.type == 'BackgroundImage' && !indieauthor.utils.isURL(formData.image)) {
-            var errorText = indieauthor.strings.errors.section.typeImageNotSelected;
-            errors.push(errorText);
-        }
 
         if (formData.bookmark.length > 40) {
             var errorText = indieauthor.strings.errors.section.invalidBookmark;
@@ -496,18 +465,11 @@ indieauthor.openSectionSettings = function (id) {
 
         } else {
             modelObject.name = formData.name;
-            modelObject.image = formData.image;
             modelObject.bookmark = formData.bookmark;
-            modelObject.bakcgroundType = formData.type;
 
             $("#modal-settings").modal('hide');
             $("#modal-settings [name='type']").off('change');
-            var preview = "";
-
-            if (modelObject.bakcgroundType)
-                preview = indieauthor.renderTemplate('<div class="prev-container" style="background:url(\'{{{image}}}\');"><span>{{name}}</span></div>', modelObject);
-            else
-                preview = indieauthor.renderTemplate('<div class="prev-container"><span>{{name}}</span></div>', modelObject);
+            var preview = indieauthor.renderTemplate('<div class="prev-container"><span>{{name}}</span></div>', modelObject);
 
             document.querySelector("[data-id='" + id + "']").querySelector(".b2").innerHTML = preview;
             $(form).remove();
@@ -549,7 +511,7 @@ indieauthor.createViewElement = function (elementType, widget, viewElement, data
 
     // MODEL CREATION
     if (modelCreation) {
-        var modelObject = indieauthor.model.createObject(elementType, widget, dataElementId, widgetInfo);;
+        var modelObject = indieauthor.model.createObject(elementType, widget, dataElementId, widgetInfo);
 
         if (parentType == 'layout')
             indieauthor.model.appendObject(modelObject, inPositionElementId, parentContainerId, parentContainerIndex);
@@ -913,12 +875,7 @@ indieauthor.loadElement = function (target, element, isSection, modelCreation = 
 
     if (isSection) {
         indieauthor.addSection(element.id, false);
-        var preview = "";
-
-        if (element.bakcgroundType == 'BackgroundImage')
-            preview = indieauthor.renderTemplate('<div class="prev-container" style="background:url(\'{{{image}}}\');"><span>{{name}}</span></div>', element);
-        else
-            preview = indieauthor.renderTemplate('<div class="prev-container"><span>{{name}}</span></div>', element);
+        var preview = indieauthor.renderTemplate('<div class="prev-container"><span>{{name}}</span></div>', element);
 
         document.querySelector("[data-id='" + element.id + "']").querySelector(".b2").innerHTML = preview;
     } else {

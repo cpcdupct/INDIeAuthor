@@ -1,2 +1,0 @@
-// Modo debug
-npm run-script debug

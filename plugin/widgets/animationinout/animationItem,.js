@@ -58,7 +58,7 @@ indieauthor.widgets.AnimationItem = {
     validateModel: function (widgetInstance) {
         var errors = [];
 
-        if (!indieauthor.utils.isURL(widgetInstance.data.image)) errors.push("AnimationItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("AnimationItem.image.invalid");
 
         if (errors.length > 0)
             return {
@@ -71,7 +71,7 @@ indieauthor.widgets.AnimationItem = {
     validateForm: function (formData) {
         var errors = [];
 
-        if (!indieauthor.utils.isURL(formData.image)) errors.push("AnimationItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("AnimationItem.image.invalid");
 
         return errors;
     },
