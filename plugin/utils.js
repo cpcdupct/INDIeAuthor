@@ -258,7 +258,7 @@ indieauthor.utils.hasNameInParams = function (widgetInstance) {
 }
 
 indieauthor.utils.isInteractiveVideo = function (url) {
-    return indieauthor.utils.isUrlWithinDomains(url, ["https://indieopen.upct.es"]);
+    return indieauthor.utils.isUrlWithinDomains(url, ["https://indieopen.upct.es", "https://backendcpcd-servicio-gateway.azuremicroservices.io"]);
 }
 
 indieauthor.utils.getAllUrlParams = function (url) {
