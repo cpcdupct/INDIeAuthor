@@ -2,7 +2,7 @@
 var indieauthor = indieauthor || {}
 
 /** Version number */
-indieauthor.version = "b.0.0.1";
+indieauthor.version = "1.4.1";
 
 /** Widget functions. Inside this property, functions associated to the generation of html elements for each widget will be found. The way to access them is indieauthor.widgets[WIDGET_TYPE].function...  */
 indieauthor.widgets = {};

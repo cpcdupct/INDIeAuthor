@@ -196,11 +196,11 @@ indieauthor.utils.array_move = function (arr, old_index, new_index) {
 
 
 indieauthor.utils.swap = function (elementOrigin, elementTarget) {
-    hasNameInParams = $(elementOrigin);
-    div2 = $(elementTarget);
+    var div1 = $(elementOrigin);
+    var div2 = $(elementTarget);
 
-    tdiv1 = div1.clone();
-    tdiv2 = div2.clone();
+    var tdiv1 = div1.clone();
+    var tdiv2 = div2.clone();
 
     if (!div2.is(':empty')) {
         div1.replaceWith(tdiv2);

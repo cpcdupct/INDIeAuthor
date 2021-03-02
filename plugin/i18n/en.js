@@ -9,6 +9,12 @@ indieauthor.strings = {
             "label": "Name",
             "placeholder": "Name of this current widget instance"
         },
+        help: {
+            label: "Help",
+            placeholder: "Default help text",
+            help: "This will be the text for helping the user understand the interaction with the widget. <strong>If left in blank, it will take the default text.</strong>",
+            button: "Default"
+        },
         "selectType": "Select a type from the following options"
     },
     "errors": {
