@@ -1,0 +1,100 @@
+[{
+        "name": "bootstrap",
+        "moduleFolder": "./node_modules/bootstrap/dist",
+        "files": [
+            "/js/bootstrap.min.js",
+            "/js/bootstrap.min.js.map",
+            "/css/bootstrap.min.css",
+            "/css/bootstrap.min.css.map"
+        ],
+        "distfolder": "/bootstrap"
+    },
+    {
+        "name": "popper",
+        "moduleFolder": "./node_modules/popper.js/dist",
+        "files": ["/umd/popper.min.js", "/umd/popper.min.js.map"],
+        "distfolder": "/popper"
+    },
+    {
+        "name": "bootprompt",
+        "moduleFolder": "./node_modules/bootprompt",
+        "files": ["/bootprompt.min.js", "/bootprompt.min.js.map"],
+        "distfolder": "/bootprompt"
+    },
+    {
+        "name": "dragula",
+        "moduleFolder": "./node_modules/dragula/dist",
+        "files": ["/dragula.min.js"],
+        "distfolder": "/dragula"
+    },
+    {
+        "name": "handlebars",
+        "moduleFolder": "./node_modules/handlebars/dist",
+        "files": ["/handlebars.min.js"],
+        "distfolder": "/handlebars"
+    },
+    {
+        "name": "jquery",
+        "moduleFolder": "./node_modules/jquery/dist",
+        "files": ["/jquery.min.js", "/jquery.min.map"],
+        "distfolder": "/jquery"
+    },
+    {
+        "name": "jquery-ui",
+        "moduleFolder": "./node_modules/jquery-ui-dist",
+        "files": ["/jquery-ui.min.js", "/jquery-ui.min.css"],
+        "distfolder": "/jquery"
+    },
+    {
+        "name": "jsonpath",
+        "moduleFolder": "./node_modules/jsonpath",
+        "files": ["/jsonpath.min.js"],
+        "distfolder": "/jsonpath"
+    },
+    {
+        "name": "stickybits",
+        "moduleFolder": "./node_modules/stickybits/dist",
+        "files": ["/stickybits.min.js"],
+        "distfolder": "/stickybits"
+    },
+    {
+        "name": "toastr",
+        "moduleFolder": "./node_modules/toastr/build",
+        "files": ["/toastr.min.js", "/toastr.min.css", "/toastr.js.map"],
+        "distfolder": "/toastr"
+    },
+    {
+        "name": "trumbowyg",
+        "moduleFolder": "./node_modules/trumbowyg/dist",
+        "files": [
+            "/trumbowyg.min.js",
+            "/plugins/cleanpaste/trumbowyg.cleanpaste.min.js",
+            "/plugins/colors/trumbowyg.colors.min.js"
+        ],
+        "distfolder": "/trumbowyg"
+    },
+    {
+        "name": "trumbowyg-ui",
+        "moduleFolder": "./node_modules/trumbowyg/dist",
+        "files": ["/ui/trumbowyg.min.css", "/ui/icons.svg"],
+        "distfolder": "/trumbowyg/ui"
+    },
+    {
+        "name": "katex",
+        "moduleFolder": "./node_modules/katex/dist",
+        "files": ["/katex.min.js", "/katex.min.css", "/contrib/auto-render.min.js"],
+        "distfolder": "/katex"
+    },
+    {
+        "name": "katex-fonts",
+        "moduleFolder": "./node_modules/katex/dist/fonts",
+        "files": ["/*.**"],
+        "distfolder": "/katex/fonts"
+    },
+    {
+        "name": "modernizr",
+        "moduleFolder": "./modules/modernizr",
+        "files": ["/modernizr.js"],
+        "distfolder": "/modernizr"
+    }
+]
