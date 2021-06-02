@@ -3,6 +3,7 @@ indieauthor.widgets.Modal = {
         widget: "Modal",
         type: "simple-container",
         allow: ["element"],
+        label: "Modal",
         category: "containers",
         toolbar: {
             edit: true
@@ -53,7 +54,7 @@ indieauthor.widgets.Modal = {
     emptyData: function (options) {
         var object = {
             params: {
-                name: "",
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
                 text: "",
                 help: ""
             },

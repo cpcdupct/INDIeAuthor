@@ -49,7 +49,7 @@ indieauthor.widgets.Video = {
     emptyData: function () {
         var object = {
             params: {
-                name: ""
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
             },
             data: {
                 videourl: ""

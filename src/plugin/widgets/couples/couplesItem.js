@@ -8,7 +8,7 @@ indieauthor.widgets.CouplesItem = {
             edit: true
         }
     },
-    createPaletteItem: function (params) {},
+    createPaletteItem: function (params) { },
     createElement: function (widgetInfo) {
         return indieauthor.renderTemplate(this.template(), {
             type: this.widgetConfig.type,
@@ -23,10 +23,11 @@ indieauthor.widgets.CouplesItem = {
         var templateValues = {
             instanceId: modelObject.id,
             image: modelObject.data.image,
-            text: modelObject.data.text
+            text: modelObject.data.text,
+            alt: modelObject.data.alt
         }
 
-        var template = '<form id="f-{{instanceId}}"> <div class="form-group"> <label for="image">{{translate "widgets.CouplesItem.form.image.label"}}</label> <input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.CouplesItem.form.image.placeholder"}}" value="{{image}}" autocomplete="off"/> <small class="form-text text-muted">{{translate "widgets.CouplesItem.form.image.help"}}</small>{{#if image}}<p>{{translate "widgets.CouplesItem.form.preview"}}</p><img class="img-fluid" src="{{image}}"/>{{/if}}</div><div class="form-group"> <label for="textblockText">{{translate "widgets.CouplesItem.form.text.label"}}</label> <input type="text" class="form-control" name="text" placeholder="{{translate "widgets.CouplesItem.form.text.placeholder"}}" required autocomplete="off" value="{{text}}"/> <small class="form-text text-muted">{{translate "widgets.CouplesItem.form.text.help"}}</small> </div></form>';
+        var template = '<form id="f-{{instanceId}}"> <div class="form-group"> <label for="image">{{translate "widgets.CouplesItem.form.image.label"}}</label> <input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.CouplesItem.form.image.placeholder"}}" value="{{image}}" autocomplete="off"/> <small class="form-text text-muted">{{translate "widgets.CouplesItem.form.image.help"}}</small></div><div class="form-group"><label for="alt">{{translate "common.alt.label"}}</label><input type="text" class="form-control" name="alt" required autocomplete="off" placeholder="{{translate "common.alt.placeholder"}}" value="{{alt}}"/><small class="form-text text-muted">{{translate "common.alt.help"}}</small></div>{{#if image}}<p>{{translate "widgets.CouplesItem.form.preview"}}</p><img class="img-fluid" src="{{image}}"/>{{/if}}<div class="form-group"> <label for="textblockText">{{translate "widgets.CouplesItem.form.text.label"}}</label> <input type="text" class="form-control" name="text" placeholder="{{translate "widgets.CouplesItem.form.text.placeholder"}}" required autocomplete="off" value="{{text}}"/> <small class="form-text text-muted">{{translate "widgets.CouplesItem.form.text.help"}}</small> </div></form>';
         var rendered = indieauthor.renderTemplate(template, templateValues);
 
         return {
@@ -34,8 +35,8 @@ indieauthor.widgets.CouplesItem = {
             title: indieauthor.strings.widgets.CouplesItem.label
         };
     },
-    settingsClosed: function (modelObject) {},
-    settingsOpened: function (modelObject) {},
+    settingsClosed: function (modelObject) { },
+    settingsOpened: function (modelObject) { },
     preview: function (modelObject) {
         var element = document.querySelector('[data-id="' + modelObject.id + '"]').querySelector('[data-prev]');
         if (modelObject.data.image && modelObject.data.text)
@@ -50,7 +51,8 @@ indieauthor.widgets.CouplesItem = {
         var object = {
             data: {
                 image: "",
-                text: ""
+                text: "",
+                alt: ""
             }
         };
 
@@ -59,12 +61,17 @@ indieauthor.widgets.CouplesItem = {
     updateModelFromForm: function (modelObject, formJson) {
         modelObject.data.text = formJson.text;
         modelObject.data.image = formJson.image;
+        modelObject.data.alt = formJson.alt;
     },
     validateModel: function (widgetInstance) {
         var errors = [];
 
         if (widgetInstance.data.text.length == 0) errors.push("CouplesItem.text.invalid");
+
         if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("CouplesItem.image.invalid");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
+            keys.push("common.alt.invalid")
 
         if (errors.length > 0)
             return {
@@ -78,7 +85,11 @@ indieauthor.widgets.CouplesItem = {
         var errors = [];
 
         if (formData.text.length == 0) errors.push("CouplesItem.text.invalid");
+
         if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("CouplesItem.image.invalid");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
+            keys.push("common.alt.invalid")
 
         return errors;
     },

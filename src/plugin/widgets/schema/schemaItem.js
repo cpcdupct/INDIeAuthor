@@ -8,7 +8,7 @@ indieauthor.widgets.SchemaItem = {
             edit: true
         }
     },
-    createPaletteItem: function (params) {},
+    createPaletteItem: function (params) { },
     createElement: function (widgetInfo) {
         return indieauthor.renderTemplate(this.template(), {
             type: this.widgetConfig.type,
@@ -21,14 +21,15 @@ indieauthor.widgets.SchemaItem = {
     },
     getInputs: function (modelValues) {
         var templateValues = {
-            instanceId: modelValues.id
+            instanceId: modelValues.id,
+            alt: modelValues.data.alt
         }
 
         if (!indieauthor.utils.isEmpty(modelValues.data)) {
             templateValues.image = modelValues.data.image;
         }
 
-        var inputTemplate = '<form id="f-{{instanceId}}"><div class="form-group"><label for="image">{{translate "widgets.SchemaItem.form.image.label"}}</label><input type="text" class="form-control" name="image" required placeholder="{{translate "widgets.SchemaItem.form.image.placeholder"}}" value="{{image}}" autocomplete="off" /><small class="form-text text-muted">{{translate "widgets.SchemaItem.form.image.help"}}</small></div>{{#if image}} <div class="form-group"><p>{{translate "widgets.SchemaItem.form.prev"}}</p><img class="img-fluid" src="{{image}}"/></div>{{/if}}</form>';
+        var inputTemplate = '<form id="f-{{instanceId}}"><div class="form-group"><label for="image">{{translate "widgets.SchemaItem.form.image.label"}}</label><input type="text" class="form-control" name="image" required placeholder="{{translate "widgets.SchemaItem.form.image.placeholder"}}" value="{{image}}" autocomplete="off" /><small class="form-text text-muted">{{translate "widgets.SchemaItem.form.image.help"}}</small></div><div class="form-group"><label for="alt">{{translate "common.alt.label"}}</label><input type="text" class="form-control" name="alt" required autocomplete="off" placeholder="{{translate "common.alt.placeholder"}}" value="{{alt}}"/><small class="form-text text-muted">{{translate "common.alt.help"}}</small></div>{{#if image}} <div class="form-group"><p>{{translate "widgets.SchemaItem.form.prev"}}</p><img class="img-fluid" src="{{image}}"/></div>{{/if}}</form>';
         var rendered = indieauthor.renderTemplate(inputTemplate, templateValues);
 
         return {
@@ -36,8 +37,8 @@ indieauthor.widgets.SchemaItem = {
             title: indieauthor.strings.widgets.SchemaItem.label
         };
     },
-    settingsClosed: function (modelObject) {},
-    settingsOpened: function (modelObject) {},
+    settingsClosed: function (modelObject) { },
+    settingsOpened: function (modelObject) { },
     preview: function (modelObject) {
         var element = document.querySelector('[data-id="' + modelObject.id + '"]').querySelector('[data-prev]');
         element.innerHTML = modelObject.data.image ? modelObject.data.image : indieauthor.strings.widgets.SchemaItem.prev;
@@ -45,7 +46,8 @@ indieauthor.widgets.SchemaItem = {
     emptyData: function (options) {
         var object = {
             data: {
-                image: ""
+                image: "",
+                alt: ""
             }
         };
 
@@ -53,11 +55,15 @@ indieauthor.widgets.SchemaItem = {
     },
     updateModelFromForm: function (modelObject, formJson) {
         modelObject.data.image = formJson.image;
+        modelObject.data.alt = formJson.alt;
     },
     validateModel: function (widgetInstance) {
         var errors = [];
 
         if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("SchemaItem.image.invalid");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
+            keys.push("common.alt.invalid")
 
         if (errors.length > 0)
             return {
@@ -71,6 +77,9 @@ indieauthor.widgets.SchemaItem = {
         var errors = [];
 
         if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("SchemaItem.image.invalid");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
+            keys.push("common.alt.invalid")
 
         return errors;
     },

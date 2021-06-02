@@ -32,10 +32,11 @@ indieauthor.widgets.ChooseOption = {
             image: modelValues.data.image,
             options: modelValues.data.options,
             instanceName: modelValues.params.name,
-            help: modelValues.params.help
+            help: modelValues.params.help,
+            alt: modelValues.data.alt
         };
 
-        var template = '<form id="f-{{instanceId}}"><div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"> <label for="help">{{translate "common.help.label"}}</label> <div class="input-group mb-3"> <input name="help" type="text" class="form-control" placeholder="{{translate "common.help.placeholder"}}" value="{{help}}"> <div class="input-group-append"> <button class="btn btn-indie" type="button" onclick="$(\'input[name=help]\').val(\'\')">{{translate "common.help.button"}}</button> </div></div><small class="form-text text-muted">{{translate "common.help.help"}}</small> </div><div class="form-group"> <label>{{translate "widgets.ChooseOption.form.text.label"}}</label> <textarea class="form-control" name="text" placeholder="{{translate "widgets.ChooseOption.form.text.placeholder"}}" required>{{text}}</textarea> <small class="form-text text-muted">{{translate "widgets.ChooseOption.form.text.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.ChooseOption.form.image.label"}}</label><input type="url" class="form-control" name="image" required autocomplete="off" placeholder="{{translate "widgets.ChooseOption.form.image.placeholder"}}" value="{{image}}"/><small class="form-text text-muted">{{translate "widgets.ChooseOption.form.image.help"}}</small></div>{{#if image}}<div class="form-group"> <p>{{translate "widgets.ChooseOption.form.preview"}}</p><img class="img-fluid" src="{{image}}"/> </div>{{/if}}<div class="form-group"> <label>{{translate "widgets.ChooseOption.form.options.label"}}</label>{{#each options}}<div class="input-group input-answer"> <div class="input-group-prepend"> <div class="input-group-text"> <input type="radio" name="correct"{{#if correct}}checked="true"{{/if}}value="{{@index}}"> </div></div><input class="form-control" type="text" name="option{{@index}}" autocomplete="off" placeholder="{{translate "widgets.ChooseOption.form.options.placeholder"}}" value="{{text}}" autocomplete="off"/> </div>{{/each}}<small class="form-text text-muted">{{translate "widgets.ChooseOption.form.options.help"}}</small> </div></form>';
+        var template = '<form id="f-{{instanceId}}"><div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"> <label for="help">{{translate "common.help.label"}}</label> <div class="input-group mb-3"> <input name="help" type="text" class="form-control" placeholder="{{translate "common.help.placeholder"}}" value="{{help}}"> <div class="input-group-append"> <button class="btn btn-indie" type="button" onclick="$(\'input[name=help]\').val(\'\')">{{translate "common.help.button"}}</button> </div></div><small class="form-text text-muted">{{translate "common.help.help"}}</small> </div><div class="form-group"> <label>{{translate "widgets.ChooseOption.form.text.label"}}</label> <textarea class="form-control" name="text" placeholder="{{translate "widgets.ChooseOption.form.text.placeholder"}}" required>{{text}}</textarea> <small class="form-text text-muted">{{translate "widgets.ChooseOption.form.text.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.ChooseOption.form.image.label"}}</label><input type="url" class="form-control" name="image" required autocomplete="off" placeholder="{{translate "widgets.ChooseOption.form.image.placeholder"}}" value="{{image}}"/><small class="form-text text-muted">{{translate "widgets.ChooseOption.form.image.help"}}</small></div><div class="form-group"><label for="alt">{{translate "common.alt.label"}}</label><input type="text" class="form-control" name="alt" required autocomplete="off" placeholder="{{translate "common.alt.placeholder"}}" value="{{alt}}"/><small class="form-text text-muted">{{translate "common.alt.help"}}</small></div>{{#if image}}<div class="form-group"> <p>{{translate "widgets.ChooseOption.form.preview"}}</p><img class="img-fluid" src="{{image}}"/> </div>{{/if}}<div class="form-group"> <label>{{translate "widgets.ChooseOption.form.options.label"}}</label>{{#each options}}<div class="input-group input-answer"> <div class="input-group-prepend"> <div class="input-group-text"> <input type="radio" name="correct"{{#if correct}}checked="true"{{/if}}value="{{@index}}"> </div></div><input class="form-control" type="text" name="option{{@index}}" autocomplete="off" placeholder="{{translate "widgets.ChooseOption.form.options.placeholder"}}" value="{{text}}" autocomplete="off"/> </div>{{/each}}<small class="form-text text-muted">{{translate "widgets.ChooseOption.form.options.help"}}</small> </div></form>';
         var rendered = indieauthor.renderTemplate(template, templateValues);
 
         return {
@@ -43,8 +44,8 @@ indieauthor.widgets.ChooseOption = {
             title: indieauthor.strings.widgets.ChooseOption.label
         };
     },
-    settingsClosed: function (modelObject) {},
-    settingsOpened: function (modelObject) {},
+    settingsClosed: function (modelObject) { },
+    settingsOpened: function (modelObject) { },
     preview: function (modelObject) {
         var element = document.querySelector('[data-id="' + modelObject.id + '"]').querySelector('[data-prev]');
         if (modelObject.params.name && modelObject.data.text)
@@ -55,28 +56,29 @@ indieauthor.widgets.ChooseOption = {
     emptyData: function (options) {
         var object = {
             params: {
-                name: "",
-                help: ""
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
+                help: "",
             },
             data: {
                 text: "",
                 image: "",
+                alt: "",
                 options: [{
-                        text: "",
-                        correct: false
-                    },
-                    {
-                        text: "",
-                        correct: false
-                    },
-                    {
-                        text: "",
-                        correct: false
-                    },
-                    {
-                        text: "",
-                        correct: false
-                    }
+                    text: "",
+                    correct: false
+                },
+                {
+                    text: "",
+                    correct: false
+                },
+                {
+                    text: "",
+                    correct: false
+                },
+                {
+                    text: "",
+                    correct: false
+                }
                 ]
             }
         };
@@ -105,6 +107,8 @@ indieauthor.widgets.ChooseOption = {
         modelObject.data.text = formData.text;
         modelObject.params.name = formData.instanceName;
         modelObject.params.help = formData.help;
+        modelObject.data.alt = formData.alt;
+
     },
     validateModel: function (widgetInstance) {
         var errors = [];
@@ -125,6 +129,9 @@ indieauthor.widgets.ChooseOption = {
             errors.push("common.name.invalid");
         else if (!indieauthor.model.isUniqueName(widgetInstance.params.name, widgetInstance.id))
             errors.push("common.name.notUniqueName");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
+            keys.push("common.alt.invalid")
 
         if (errors.length > 0) {
             return {
@@ -171,6 +178,9 @@ indieauthor.widgets.ChooseOption = {
             errors.push("common.name.invalid");
         else if (!indieauthor.model.isUniqueName(formData.instanceName, instanceId))
             errors.push("common.name.notUniqueName");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
+            keys.push("common.alt.invalid")
 
         return errors;
     },

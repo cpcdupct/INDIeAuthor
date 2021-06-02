@@ -9,6 +9,11 @@ indieauthor.strings = {
             "label": "Name",
             "placeholder": "Name of this current widget instance"
         },
+        "alt": {
+            "help": "This is the alternative text for the image in terms of accesibility",
+            "label": "Alternative text for the image",
+            "placeholder": "Alternative text"
+        },
         help: {
             label: "Help",
             placeholder: "Default help text",
@@ -263,6 +268,9 @@ indieauthor.strings = {
             "name": {
                 "invalid": "You must provide a name for this instance",
                 "notUniqueName": "The instance name must be unique in the whole content unit"
+            },
+            "alt": {
+                "invalid": "You must provide an alternative text for the image",
             }
         },
         "section": {

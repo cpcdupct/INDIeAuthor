@@ -51,7 +51,7 @@ indieauthor.widgets.TabsContainer = {
     emptyData: function (widget) {
         var object = {
             params: {
-                name: "",
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
                 help: ""
             },
             data: []
