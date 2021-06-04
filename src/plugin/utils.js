@@ -13,13 +13,15 @@ indieauthor.utils.generate_uuid = (function () {
     };
 })();
 
-
 indieauthor.utils.contains = function (a, b) {
     return a.contains ?
         a != b && a.contains(b) :
         !!(a.compareDocumentPosition(b) & 16);
 }
 
+indieauthor.utils.isStringEmptyOrWhitespace = function (str) {
+    return str === null || str.match(/^ *$/) !== null;
+}
 
 /**
  * Converts the values from a form into a json object 

@@ -42,8 +42,8 @@ indieauthor.widgets.AcordionContainer = {
             title: indieauthor.strings.widgets.AcordionContainer.label
         };
     },
-    settingsClosed: function (modelObject) {},
-    settingsOpened: function (modelObject) {},
+    settingsClosed: function (modelObject) { },
+    settingsOpened: function (modelObject) { },
     preview: function (modelObject) {
         var element = document.querySelector('[data-id="' + modelObject.id + '"]').querySelector('[data-prev]');
         element.querySelector("span").innerHTML = modelObject.params.name ? modelObject.params.name : indieauthor.strings.widgets.AcordionContainer.label;
@@ -51,7 +51,7 @@ indieauthor.widgets.AcordionContainer = {
     emptyData: function (options) {
         var object = {
             params: {
-                name: "",
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
                 help: ""
             },
             data: []

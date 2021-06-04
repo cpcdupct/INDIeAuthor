@@ -9,6 +9,11 @@ indieauthor.strings = {
             "label": "Nombre",
             "placeholder": "Nombre de la instancia del widget"
         },
+        "alt": {
+            "help": "Este es el texto alternativo de descripción para la imagen en materia de accesibilidad",
+            "label": "Texto alternativo para la imagen",
+            "placeholder": "Texto alternativo"
+        },
         help: {
             label: "Ayuda",
             placeholder: "Texto de ayuda por defecto",
@@ -263,6 +268,9 @@ indieauthor.strings = {
             "name": {
                 "invalid": "Debes proporcionar un nombre para esta instancia.",
                 "notUniqueName": "El nombre de la instancia debe ser único en todo el contenido."
+            },
+            "alt": {
+                "invalid": "Debes proporcionar un texto alternativo para la imagen",
             }
         },
         "section": {

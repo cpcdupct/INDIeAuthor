@@ -51,7 +51,7 @@ indieauthor.widgets.AudioTermContainer = {
     emptyData: function (options) {
         var object = {
             params: {
-                name: "",
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
                 help: ""
             },
             data: []

@@ -5,10 +5,10 @@ indieauthor.model.sections = []; // MODEL SECTIONS
 indieauthor.model.currentErrors = [];
 
 // Current model version
-indieauthor.model.CURRENT_MODEL_VERSION = 5;
+indieauthor.model.CURRENT_MODEL_VERSION = 6;
 
 // Version history
-indieauthor.model.VERSION_HISTORY = [1, 2, 3, 4, 5];
+indieauthor.model.VERSION_HISTORY = [1, 2, 3, 4, 5, 6];
 
 /**
  * Creates and pushes a section into the model
@@ -22,7 +22,6 @@ indieauthor.model.createSection = function () {
         type: "section-container",
         widget: "Section",
         bookmark: "",
-        image: "",
         data: []
     };
 

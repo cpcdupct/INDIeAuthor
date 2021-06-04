@@ -8,7 +8,7 @@ indieauthor.widgets.ImageAndSoundItem = {
             edit: true
         }
     },
-    createPaletteItem: function (params) {},
+    createPaletteItem: function (params) { },
     createElement: function (widgetInfo) {
         return indieauthor.renderTemplate(this.template(), {
             type: this.widgetConfig.type,
@@ -24,10 +24,11 @@ indieauthor.widgets.ImageAndSoundItem = {
             instanceId: modelObject.id,
             audio: modelObject.data.audio,
             text: modelObject.data.text,
-            image: modelObject.data.image
+            image: modelObject.data.image,
+            alt: modelObject.data.alt
         }
 
-        var template = '<form id="f-{{instanceId}}"> <div class="form-group"> <label>{{translate "widgets.ImageAndSoundItem.form.audio.label"}}</label> <input type="url" class="form-control" name="audio" placeholder="{{translate "widgets.ImageAndSoundItem.form.audio.placeholder"}}" value="{{audio}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "widgets.ImageAndSoundItem.form.audio.help"}}</small> </div><div class="form-group"> <label>{{translate "widgets.ImageAndSoundItem.form.text.label"}}</label> <textarea class="form-control" name="text" required placeholder="{{translate "widgets.ImageAndSoundItem.form.text.placeholder"}}">{{text}}</textarea> <small class="form-text text-muted">{{translate "widgets.ImageAndSoundItem.form.text.help"}}</small> </div><div class="form-group"> <label for="image">{{translate "widgets.ImageAndSoundItem.form.image.label"}}</label><input type="url" class="form-control" name="image" required autocomplete="off" placeholder="{{translate "widgets.ImageAndText.form.image.placeholder"}}" value="{{image}}"/><small class="form-text text-muted">{{translate "widgets.ImageAndSoundItem.form.image.help"}}</small>{{#if image}}<p>{{translate "widgets.ImageAndSoundItem.form.preview"}}</p><img class="img-fluid" src="{{image}}"/>{{/if}}</div></form>';
+        var template = '<form id="f-{{instanceId}}"> <div class="form-group"> <label>{{translate "widgets.ImageAndSoundItem.form.audio.label"}}</label> <input type="url" class="form-control" name="audio" placeholder="{{translate "widgets.ImageAndSoundItem.form.audio.placeholder"}}" value="{{audio}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "widgets.ImageAndSoundItem.form.audio.help"}}</small> </div><div class="form-group"> <label>{{translate "widgets.ImageAndSoundItem.form.text.label"}}</label> <textarea class="form-control" name="text" required placeholder="{{translate "widgets.ImageAndSoundItem.form.text.placeholder"}}">{{text}}</textarea> <small class="form-text text-muted">{{translate "widgets.ImageAndSoundItem.form.text.help"}}</small> </div><div class="form-group"> <label for="image">{{translate "widgets.ImageAndSoundItem.form.image.label"}}</label><input type="url" class="form-control" name="image" required autocomplete="off" placeholder="{{translate "widgets.ImageAndText.form.image.placeholder"}}" value="{{image}}"/><small class="form-text text-muted">{{translate "widgets.ImageAndSoundItem.form.image.help"}}</small></div><div class="form-group"><label for="alt">{{translate "common.alt.label"}}</label><input type="text" class="form-control" name="alt" required autocomplete="off" placeholder="{{translate "common.alt.placeholder"}}" value="{{alt}}"/><small class="form-text text-muted">{{translate "common.alt.help"}}</small></div>{{#if image}}<p>{{translate "widgets.ImageAndSoundItem.form.preview"}}</p><img class="img-fluid" src="{{image}}"/>{{/if}}</form>';
         var rendered = indieauthor.renderTemplate(template, templateValues);
 
         return {
@@ -35,8 +36,8 @@ indieauthor.widgets.ImageAndSoundItem = {
             title: indieauthor.strings.widgets.ImageAndSoundItem.label
         };
     },
-    settingsClosed: function (modelObject) {},
-    settingsOpened: function (modelObject) {},
+    settingsClosed: function (modelObject) { },
+    settingsOpened: function (modelObject) { },
     preview: function (modelObject) {
         var element = document.querySelector('[data-id="' + modelObject.id + '"]').querySelector('[data-prev]');
         element.innerHTML = modelObject.data.text ? modelObject.data.text : indieauthor.strings.widgets.ImageAndSoundItem.prev;
@@ -46,7 +47,8 @@ indieauthor.widgets.ImageAndSoundItem = {
             data: {
                 audio: "",
                 image: "",
-                text: ""
+                text: "",
+                alt: ""
             }
         };
 
@@ -56,6 +58,7 @@ indieauthor.widgets.ImageAndSoundItem = {
         modelObject.data.audio = formJson.audio;
         modelObject.data.image = formJson.image;
         modelObject.data.text = formJson.text;
+        modelObject.data.alt = formJson.alt;
     },
     validateModel: function (widgetInstance) {
         var errors = [];
@@ -63,6 +66,9 @@ indieauthor.widgets.ImageAndSoundItem = {
         if (!indieauthor.utils.isIndieResource(widgetInstance.data.audio)) errors.push("ImageAndSoundItem.audio.invalid");
         if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("ImageAndSoundItem.image.invalid");
         if (widgetInstance.data.text.length == 0) errors.push("ImageAndSoundItem.text.invalid");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
+            errors.push("common.alt.invalid")
 
         if (errors.length > 0)
             return {
@@ -76,8 +82,13 @@ indieauthor.widgets.ImageAndSoundItem = {
         var errors = [];
 
         if (!indieauthor.utils.isIndieResource(formData.audio)) errors.push("ImageAndSoundItem.audio.invalid");
+
         if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("ImageAndSoundItem.image.invalid");
+
         if (formData.text.length == 0) errors.push("ImageAndSoundItem.text.invalid");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
+            errors.push("common.alt.invalid")
 
         return errors;
     },

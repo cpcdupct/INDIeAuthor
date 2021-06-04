@@ -2,6 +2,7 @@ indieauthor.widgets.SimpleImage = {
     widgetConfig: {
         widget: "SimpleImage",
         type: "element",
+        label: "Simple image",
         category: "simpleElements",
         toolbar: {
             edit: true
@@ -27,10 +28,11 @@ indieauthor.widgets.SimpleImage = {
         var templateValues = {
             instanceId: modelObject.id,
             instanceName: modelObject.params.name,
-            image: modelObject.data.image
+            image: modelObject.data.image,
+            alt: modelObject.data.alt
         }
 
-        var inputTemplate = '<form id="f-{{instanceId}}"> <div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"> <label for="type">{{translate "widgets.SimpleImage.form.aspect.label"}}</label> <select name="aspect" class="form-control" required> <option value="original">{{translate "widgets.SimpleImage.form.aspect.values.original"}}</option> <option value="fit">{{translate "widgets.SimpleImage.form.aspect.values.fit"}}</option> </select> <small class="form-text text-muted">{{translate "widgets.SimpleImage.form.aspect.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.SimpleImage.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.SimpleImage.form.image.placeholder"}}" value="{{image}}" autocomplete="off"/><small class="form-text text-muted">{{translate "widgets.SimpleImage.form.image.help"}}</small></div>{{#if image}}<div class="form-group"> <p>{{translate "widgets.SimpleImage.form.preview"}}</p><img class="img-fluid" src="{{image}}"/> </div>{{/if}}</form>';
+        var inputTemplate = '<form id="f-{{instanceId}}"> <div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"> <label for="type">{{translate "widgets.SimpleImage.form.aspect.label"}}</label> <select name="aspect" class="form-control" required> <option value="original">{{translate "widgets.SimpleImage.form.aspect.values.original"}}</option> <option value="fit">{{translate "widgets.SimpleImage.form.aspect.values.fit"}}</option> </select> <small class="form-text text-muted">{{translate "widgets.SimpleImage.form.aspect.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.SimpleImage.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.SimpleImage.form.image.placeholder"}}" value="{{image}}" autocomplete="off"/><small class="form-text text-muted">{{translate "widgets.SimpleImage.form.image.help"}}</small></div><div class="form-group"><label for="alt">{{translate "common.alt.label"}}</label><input type="text" class="form-control" name="alt" required autocomplete="off" placeholder="{{translate "common.alt.placeholder"}}" value="{{alt}}"/><small class="form-text text-muted">{{translate "common.alt.help"}}</small></div>{{#if image}}<div class="form-group"> <p>{{translate "widgets.SimpleImage.form.preview"}}</p><img class="img-fluid" src="{{image}}"/> </div>{{/if}}</form>';
         var rendered = indieauthor.renderTemplate(inputTemplate, templateValues);
 
         return {
@@ -38,7 +40,7 @@ indieauthor.widgets.SimpleImage = {
             title: indieauthor.strings.widgets.SimpleImage.label
         };
     },
-    settingsClosed: function (modelObject) {},
+    settingsClosed: function (modelObject) { },
     settingsOpened: function (modelObject) {
         $("#modal-settings [name='aspect']").val(modelObject.params.aspect);
     },
@@ -52,11 +54,12 @@ indieauthor.widgets.SimpleImage = {
     emptyData: function (options) {
         var object = {
             params: {
-                name: "",
-                aspect: "original"
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
+                aspect: "original",
             },
             data: {
-                image: ""
+                image: "",
+                alt: ""
             }
         };
 
@@ -66,6 +69,7 @@ indieauthor.widgets.SimpleImage = {
         modelObject.data.image = formJson.image;
         modelObject.params.name = formJson.instanceName;
         modelObject.params.aspect = formJson.aspect;
+        modelObject.data.alt = formJson.alt;
     },
     validateModel: function (widgetInstance) {
         var keys = [];
@@ -77,6 +81,9 @@ indieauthor.widgets.SimpleImage = {
             keys.push("common.name.invalid");
         else if (!indieauthor.model.isUniqueName(widgetInstance.params.name, widgetInstance.id))
             keys.push("common.name.notUniqueName");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
+            keys.push("common.alt.invalid")
 
         if (keys.length > 0) {
             return {
@@ -97,6 +104,9 @@ indieauthor.widgets.SimpleImage = {
             keys.push("common.name.invalid");
         else if (!indieauthor.model.isUniqueName(formData.instanceName, instanceId))
             keys.push("common.name.notUniqueName");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
+            keys.push("common.alt.invalid")
 
         return keys;
     },

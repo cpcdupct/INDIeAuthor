@@ -51,7 +51,7 @@ indieauthor.widgets.AnimationContainer = {
     emptyData: function (options) {
         var object = {
             params: {
-                name: "",
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
                 width: 0,
                 height: 0,
                 image: "",

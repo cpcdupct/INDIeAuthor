@@ -29,7 +29,8 @@ indieauthor.widgets.Image = {
         var templateValues = {
             instanceId: modelValues.id,
             instanceName: modelValues.params.name,
-            help: modelValues.params.help
+            help: modelValues.params.help,
+            alt: modelValues.data.alt
         }
 
         if (!indieauthor.utils.isEmpty(modelValues.data)) {
@@ -37,7 +38,7 @@ indieauthor.widgets.Image = {
             templateValues.image = modelValues.data.image;
         }
 
-        var inputTemplate = '<form id="f-{{instanceId}}"><div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"> <label for="help">{{translate "common.help.label"}}</label> <div class="input-group mb-3"> <input name="help" type="text" class="form-control" placeholder="{{translate "common.help.placeholder"}}" value="{{help}}"> <div class="input-group-append"> <button class="btn btn-indie" type="button" onclick="$(\'input[name=help]\').val(\'\')">{{translate "common.help.button"}}</button> </div></div><small class="form-text text-muted">{{translate "common.help.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.Image.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.Image.form.image.placeholder"}}" value="{{image}}" autocomplete="off" /><small class="form-text text-muted">{{translate "widgets.Image.form.image.help"}}</small></div> {{#if image}} <div class="form-group"><p>{{translate "widgets.Image.form.preview"}}</p><img class="img-fluid" src="{{image}}"/></div>{{/if}}<div class="form-group"><label for="text">{{translate "widgets.Image.form.caption.label"}}</label><textarea class="form-control texteditor" name="text">{{text}}</textarea><small class="form-text text-muted">{{translate "widgets.Image.form.caption.help"}}</small></div></form>';
+        var inputTemplate = '<form id="f-{{instanceId}}"><div class="form-group"> <label for="instanceName">{{translate "common.name.label"}}</label> <input type="text" name="instanceName" class="form-control" value="{{instanceName}}" placeholder="{{translate "common.name.placeholder"}}" autocomplete="off" required/> <small class="form-text text-muted">{{translate "common.name.help"}}</small> </div><div class="form-group"> <label for="help">{{translate "common.help.label"}}</label> <div class="input-group mb-3"> <input name="help" type="text" class="form-control" placeholder="{{translate "common.help.placeholder"}}" value="{{help}}"> <div class="input-group-append"> <button class="btn btn-indie" type="button" onclick="$(\'input[name=help]\').val(\'\')">{{translate "common.help.button"}}</button> </div></div><small class="form-text text-muted">{{translate "common.help.help"}}</small> </div><div class="form-group"><label for="image">{{translate "widgets.Image.form.image.label"}}</label><input type="url" class="form-control" name="image" required placeholder="{{translate "widgets.Image.form.image.placeholder"}}" value="{{image}}" autocomplete="off" /><small class="form-text text-muted">{{translate "widgets.Image.form.image.help"}}</small></div> <div class="form-group"><label for="alt">{{translate "common.alt.label"}}</label><input type="text" class="form-control" name="alt" required autocomplete="off" placeholder="{{translate "common.alt.placeholder"}}" value="{{alt}}"/><small class="form-text text-muted">{{translate "common.alt.help"}}</small></div> {{#if image}} <div class="form-group"><p>{{translate "widgets.Image.form.preview"}}</p><img class="img-fluid" src="{{image}}"/></div>{{/if}}<div class="form-group"><label for="text">{{translate "widgets.Image.form.caption.label"}}</label><textarea class="form-control texteditor" name="text">{{text}}</textarea><small class="form-text text-muted">{{translate "widgets.Image.form.caption.help"}}</small></div></form>';
         var rendered = indieauthor.renderTemplate(inputTemplate, templateValues);
 
         return {
@@ -45,7 +46,7 @@ indieauthor.widgets.Image = {
             title: indieauthor.strings.widgets.Image.label
         };
     },
-    settingsClosed: function (modelObject) {},
+    settingsClosed: function (modelObject) { },
     settingsOpened: function (modelObject) {
         indieauthor.widgetFunctions.initTextEditor(modelObject.data.text, this.widgetConfig.widget, indieauthor.strings.widgets.Image.form.caption.placeholder);
     },
@@ -56,12 +57,13 @@ indieauthor.widgets.Image = {
     emptyData: function () {
         var object = {
             params: {
-                name: "",
-                help: ""
+                name: this.widgetConfig.label + "-" + indieauthor.utils.generate_uuid(),
+                help: "",
             },
             data: {
                 text: "",
-                image: ""
+                image: "",
+                alt: ""
             }
         };
 
@@ -72,6 +74,7 @@ indieauthor.widgets.Image = {
         modelObject.data.image = formJson.image;
         modelObject.params.name = formJson.instanceName;
         modelObject.params.help = formJson.help;
+        modelObject.data.alt = formJson.alt;
     },
     validateModel: function (widgetInstance) {
         var keys = [];
@@ -89,6 +92,9 @@ indieauthor.widgets.Image = {
             keys.push("common.name.invalid");
         else if (!indieauthor.model.isUniqueName(widgetInstance.params.name, widgetInstance.id))
             keys.push("common.name.notUniqueName");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
+            keys.push("common.alt.invalid")
 
         if (keys.length > 0) {
             return {
@@ -115,6 +121,9 @@ indieauthor.widgets.Image = {
 
         if (indieauthor.widgetFunctions.isEmptyText(formData.text))
             keys.push("TextBlock.text.invalid");
+
+        if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
+            keys.push("common.alt.invalid")
 
         return keys;
     },

@@ -460,6 +460,7 @@
 
 .btn-indie:hover {
     background-color: darken($mainColor, 8);
+    color: white;
 }
 
 .modal-indie {
@@ -502,7 +503,7 @@
 
 /* trumbowyg */
 .trumbowyg-modal {
-    top: 100% !important;
+    top: 50% !important;
     z-index: +1;
 }
 
