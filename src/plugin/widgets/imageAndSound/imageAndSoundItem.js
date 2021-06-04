@@ -68,7 +68,7 @@ indieauthor.widgets.ImageAndSoundItem = {
         if (widgetInstance.data.text.length == 0) errors.push("ImageAndSoundItem.text.invalid");
 
         if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
-            keys.push("common.alt.invalid")
+            errors.push("common.alt.invalid")
 
         if (errors.length > 0)
             return {
@@ -88,7 +88,7 @@ indieauthor.widgets.ImageAndSoundItem = {
         if (formData.text.length == 0) errors.push("ImageAndSoundItem.text.invalid");
 
         if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
-            keys.push("common.alt.invalid")
+            errors.push("common.alt.invalid")
 
         return errors;
     },

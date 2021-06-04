@@ -60,10 +60,11 @@ indieauthor.widgets.SchemaItem = {
     validateModel: function (widgetInstance) {
         var errors = [];
 
-        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image)) errors.push("SchemaItem.image.invalid");
+        if (!indieauthor.utils.isIndieResource(widgetInstance.data.image))
+            errors.push("SchemaItem.image.invalid");
 
         if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
-            keys.push("common.alt.invalid")
+            errors.push("common.alt.invalid")
 
         if (errors.length > 0)
             return {
@@ -79,7 +80,7 @@ indieauthor.widgets.SchemaItem = {
         if (!indieauthor.utils.isIndieResource(formData.image)) errors.push("SchemaItem.image.invalid");
 
         if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
-            keys.push("common.alt.invalid")
+            errors.push("common.alt.invalid")
 
         return errors;
     },

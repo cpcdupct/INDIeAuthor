@@ -86,7 +86,7 @@ indieauthor.widgets.ImageAndText = {
             errors.push("common.name.notUniqueName");
 
         if (indieauthor.utils.isStringEmptyOrWhitespace(widgetInstance.data.alt))
-            keys.push("common.alt.invalid")
+            errors.push("common.alt.invalid")
 
         if (errors.length > 0) {
             return {
@@ -110,7 +110,7 @@ indieauthor.widgets.ImageAndText = {
             errors.push("common.name.notUniqueName");
 
         if (indieauthor.utils.isStringEmptyOrWhitespace(formData.alt))
-            keys.push("common.alt.invalid")
+            errors.push("common.alt.invalid")
 
         return errors;
     },
