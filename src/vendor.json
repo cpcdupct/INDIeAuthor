@@ -69,7 +69,7 @@
         "files": [
             "/trumbowyg.min.js",
             "/plugins/cleanpaste/trumbowyg.cleanpaste.min.js",
-            "/plugins/colors/trumbowyg.colors.min.js"
+            "/plugins/allowtagsfrompaste/trumbowyg.allowtagsfrompaste.js"
         ],
         "distfolder": "/trumbowyg"
     },

@@ -13,13 +13,12 @@ indieauthor.widgetFunctions.initTextEditor = function (content, origin, placehol
             ['viewHTML'],
             ['undo', 'redo'], // Only supported in Blink browsers
             ["Format"],
-            ['foreColor', 'backColor'],
             ['strong', 'em', 'del'],
             ['link'],
             ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
-            ['horizontalRule'],
-            ['removeformat']
+            ['removeformat'],
+            ['fullscreen']
         ],
         btnsDef: {
             Format: {
