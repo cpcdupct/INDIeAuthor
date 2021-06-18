@@ -10,7 +10,6 @@ indieauthor.widgetFunctions = {};
 indieauthor.widgetFunctions.initTextEditor = function (content, element) {
     $(element).trumbowyg({
         btns: [
-            ['viewHTML'],
             ['undo', 'redo'], // Only supported in Blink browsers
             ["Format"],
             ['strong', 'em', 'del'],
