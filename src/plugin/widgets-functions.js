@@ -7,15 +7,14 @@ indieauthor.widgetFunctions = {};
  * @param {string} content Editor text content. Can be empty
  * @param {string} origin String that indicates the widget origin that requested the editor
  */
-indieauthor.widgetFunctions.initTextEditor = function (content, origin, placeholder) {
-    $('.texteditor').trumbowyg({
+indieauthor.widgetFunctions.initTextEditor = function (content, element) {
+    $(element).trumbowyg({
         btns: [
             ['viewHTML'],
             ['undo', 'redo'], // Only supported in Blink browsers
             ["Format"],
             ['strong', 'em', 'del'],
             ['link'],
-            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
             ['removeformat'],
             ['fullscreen']
@@ -31,7 +30,31 @@ indieauthor.widgetFunctions.initTextEditor = function (content, origin, placehol
         tagsToRemove: ['script', 'link', 'style', 'img', 'applet', 'embed', 'noframes', 'iframe', 'noscript']
     });
 
-    if (content) $('.texteditor').trumbowyg('html', content);
+    if (content) $(element).trumbowyg('html', content);
+}
+
+/**
+ * Clears, optimizes and sanitize the HTML 
+ * 
+ * @param {*} html Html content 
+ */
+indieauthor.widgetFunctions.clearAndSanitizeHtml = function (html) {
+    var temporaryDivElement = document.createElement('div');
+    temporaryDivElement.hidden = true;
+    temporaryDivElement.innerHTML = html;
+
+    for (let elem of temporaryDivElement.querySelectorAll("*")) {
+        elem.removeAttribute('style');
+
+        if (elem.innerHTML.trim().length == 0) {
+            elem.remove();
+        }
+    }
+
+    var finalHtml = temporaryDivElement.innerHTML;
+
+    temporaryDivElement.remove();
+    return finalHtml;
 }
 
 indieauthor.widgetFunctions.isEmptyText = function (text) {

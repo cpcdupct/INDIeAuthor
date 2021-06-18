@@ -1,6 +1,6 @@
 {
   "name": "indie-author",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "INDIeauthor is a Javascript-based graphical user interface for creating content units within INDIe Project.",
   "main": "server.js",
   "homepage": "https://github.com/cpcdupct/INDIeAuthor",

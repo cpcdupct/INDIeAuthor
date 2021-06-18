@@ -48,7 +48,8 @@ indieauthor.widgets.Image = {
     },
     settingsClosed: function (modelObject) { },
     settingsOpened: function (modelObject) {
-        indieauthor.widgetFunctions.initTextEditor(modelObject.data.text, this.widgetConfig.widget, indieauthor.strings.widgets.Image.form.caption.placeholder);
+        var editorElement = $('#f-' + modelObject.id + ' .texteditor');
+        indieauthor.widgetFunctions.initTextEditor(modelObject.data.text, editorElement);
     },
     preview: function (modelObject) {
         var element = document.querySelector('[data-id="' + modelObject.id + '"]').querySelector('[data-prev]');
@@ -70,7 +71,7 @@ indieauthor.widgets.Image = {
         return object;
     },
     updateModelFromForm: function (modelObject, formJson) {
-        modelObject.data.text = formJson.text;
+        modelObject.data.text =indieauthor.widgetFunctions.clearAndSanitizeHtml(formJson.textblockText);
         modelObject.data.image = formJson.image;
         modelObject.params.name = formJson.instanceName;
         modelObject.params.help = formJson.help;

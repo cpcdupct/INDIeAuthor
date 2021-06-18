@@ -46,27 +46,24 @@ indieauthor.widgets.TextBlock = {
             title: indieauthor.strings.widgets.TextBlock.label
         };
     },
-    settingsClosed: function (modelObject) {
-
-    },
+    settingsClosed: function (modelObject) { },
     settingsOpened: function (modelObject) {
-        indieauthor.widgetFunctions.initTextEditor(modelObject.data.text, this.widgetConfig.widget, indieauthor.strings.widgets.TextBlock.form.placeholder);
+        var editorElement = $('#f-' + modelObject.id + ' .texteditor');
+        indieauthor.widgetFunctions.initTextEditor(modelObject.data.text, editorElement);
     },
     preview: function (modelObject) {
         var element = document.querySelector('[data-id="' + modelObject.id + '"]').querySelector('[data-prev]');
         element.innerHTML = modelObject.data.text.length > 0 ? modelObject.data.text : indieauthor.strings.widgets.TextBlock.prev;
     },
     emptyData: function () {
-        var object = {
+        return {
             data: {
                 text: ""
             }
-        }
-
-        return object;
+        };
     },
     updateModelFromForm: function (modelObject, formJson) {
-        modelObject.data.text = formJson.textblockText;
+        modelObject.data.text = indieauthor.widgetFunctions.clearAndSanitizeHtml(formJson.textblockText);
     },
     validateModel: function (widgetInstance) {
         if (widgetInstance.data.text.length == 0)
